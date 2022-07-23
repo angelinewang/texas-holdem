@@ -105,8 +105,88 @@ thirdCommunity = () => {
 
 shownDown = () => {
   //#0 Create an array with the hands listed
+  let hands = [
+    {
+        name: "Royal Flush",
+        values: ["A", "K", "Q", "J", 10]
+        suits: "Same"
+    },
+    {
+        name: "Straight Flush",
+        values: "Consecutive",
+        suits: "Same"
+    },
+    {
+        name: "Four-of-a-Kind",
+        values: "4 Same"
+    },
+    {
+        name: "Full House",
+        values: "3 Same & 2 Same"
+    },
+    {
+        name: "Flush",
+        suits: "Same"
+    },
+    {
+        name: "Straight",
+        values: "Consecutive"
+    },
+    {
+        name: "Three-of-a-Kind",
+        values: "3 Same"
+    },
+    {
+        name: "Two-Pair",
+        values: "2 Same & 2 Same"
+    },
+    {
+        name: "One-Pair",
+        values: "2 Same"
+    }
+  ]
   //#1 Create an array for each remaining players' cards added with the community cards
+  
+  remainingPlayers.forEach(element => {
+    element.hand = element.cards.push(communityCards)
+    if(element.hand
+        
+        //STARTING POINT TO FIGURE OUT HOW TO EVALUATE AND DETERMINE HANDS 
+        ) {
+        element.handName = "Royal Flush"
+    }
+    if(element.hand) {
+        element.handName = "Straight Flush"
+    }
+    if(element.hand) {
+        element.handName = "Four-of-a-Kind"
+    }
+    if(element.hand) {
+        element.handName = "Full House"
+    }
+    if(element.hand) {
+        element.handName = "Flush"
+    }
+    if(element.hand) {
+        element.handName = "Straight"
+    }
+    if(element.hand) {
+        element.handName = "Three-of-a-Kind"
+    }
+    if(element.hand) {
+        element.handName = "Two=Pair"
+    }
+    if(element.hand) {
+        element.handName = "One-Pair"
+    }
+    else {
+        element.handName = "High Card"
+    }
+  })
+console.log(players);
   //#2 Conditional statements to determine what kind of hand each player has and store that value
+ 
+
   //#3 Store all hands into an array ranking top to bottom hands
   //#4 Compare the index number of the hand each player has, and sort the players from 0 - 9
   //#5 Determine the winner by logging the first player in the array
