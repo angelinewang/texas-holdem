@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,72 +8,137 @@
     <script defer src="v2-script.js"></script>
     <link rel="stylesheet" href="fontawesome-free-6.1.1-web\css\all.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
     <title>Texas Hold'em</title>
 </head>
+
 <body>
-    <h1>Texas Hold'em</h1>
-    <div class="buttons-box">
-        <div class="buttons">
-            <!-- <button id="start-game">Start Game</button> -->
-            <button id="start-round">Start Round</button>
-            <button id="end-round">End Round</button>
-            <!-- <button id="end-game">End Game</button> -->
-            <button id="deal-players">Deal Cards to Players</button>
-            <button id="deal-community">Deal Community Cards</button>
+    <div class="body-box">
+        <h1>Texas Hold'em</h1>
+        <div class="buttons-box">
+            <div class="buttons">
+                <!-- <button id="start-game">Start Game</button> -->
+                <button id="start-round" class="function-buttons">Start Round</button>
+                <button id="end-round" class="function-buttons">End Round</button>
+                <!-- <button id="end-game">End Game</button> -->
+                <button id="deal-players" class="function-buttons">Deal Cards to Players</button>
+                <button id="deal-community" class="function-buttons">Deal Community Cards</button>
 
 
-            <button id="start-betting">Start Betting</button>
+                <button id="start-betting" class="function-buttons">Start Betting</button>
 
 
-            <button id="check">Check</button> 
-            <button id="fold">Fold</button> 
-            <button id="call">Call the Big Blind</button> 
-            <button id="raise">Raise</button> 
+                <button id="check" class="betting-buttons">Check</button>
+                <button id="fold" class="betting-buttons">Fold</button>
+                <button id="call" class="betting-buttons">Call the Big Blind</button>
+                <button id="raise" class="betting-buttons">Raise</button>
 
-            <button id="showdown">Showdown</button>
-            <button id="reveal">Reveal Winner</button>
+                <button id="showdown" class="function-buttons">Showdown</button>
+                <button id="reveal" class="function-buttons">Reveal Winner</button>
+
+            </div>
+        </div>
+
+        <div id="table">
+            <div class="player-all">
+                <div class="players11">
+                    <div class="players1">
+                        <div id="player-1" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p class="small-blind">The Small Blind</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+
+                        <div id="player-2" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p class="big-blind">The Big Blind</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+
+                        <div id="player-3" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p class="under-the-gun">Under the Gun</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="com-des">
+                    <p>Community Cards</p>
+                </div>
+                <div class="community-box">
+                    <div class="community-all">
+
+                        <div class="community-cards">
+                            <div class="card">
+                                <div id="com-cards" class="community">A Diamonds</div>
+                            </div>
+                            <div class="card">
+                                <div id="com-cards2" class="community">2 Spades</div>
+                            </div>
+                            <div class="card">
+                                <div id="com-cards3" class="community">3 Clubs</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="players22">
+                    <div class="players2">
+                        <div id="player-6" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p>Player</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+
+                        <div id="player-5" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p>Me</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+
+                        <div id="player-4" class="user playing">
+                            <i class="fa-solid fa-user-ninja fa-3x"></i>
+                            <p>Player</p>
+                            <p class="bet-choice">No bet</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
 
         </div>
-    </div>
-    
-    <div id="table">
-        <div class="player-all">
-            <div id="player-1" class="user"><i class="fa-solid fa-user-ninja"></i><p>The Small Blind</p><p class="bet-choice">No bet</p></div>
-            
-            <div id="player-2" class="user"><i class="fa-solid fa-user-ninja"></i><p>The Big Blind</p><p class="bet-choice">No bet</p></div>
-            
-            <div id="player-3" class="user"><i class="fa-solid fa-user-ninja"></i><p>Under the Gun</p><p class="bet-choice">No bet</p></div>
-
-            <div id="player-4" class="user"><i class="fa-solid fa-user-ninja"></i><p>Player</p><p class="bet-choice">No bet</p></div>
-            <div id="player-5" class="user"><i class="fa-solid fa-user-ninja"></i><p>Angeline</p><p class="bet-choice">No bet</p></div>
-            <div id="player-6" class="user"><i class="fa-solid fa-user-ninja"></i><p>Player</p><p class="bet-choice">No bet</p></div>
+        <div class="cards-des">
+            <p>My Cards</p>
         </div>
-        
-    </div>
-    <p>The Community Cards are:</p>
-    <div class="community-all">  
-        <div id="com-cards" class="community"></div>
-        <div id="com-cards2" class="community"></div>
-        <div id="com-cards3" class="community"></div>
-        <div id="com-cards4" class="community"></div>
-        <div id="com-cards5" class="community"></div>
-        <div id="com-cards6" class="community"></div>
-    </div>
-<p>Your first card is:</p>
-   <div id="cards" class="mine">
+        <div class="cards-box">
 
-   </div>
-   <div id="cards-suit" class="mine">
-    
-   </div>
-   <p>Your second card is:</p>
-    <div id="cards2" class="mine">
-    </div>
+            <div class="myCards">
+                <!--      
+            <p>Your first card is:</p> -->
+                <div class="card">
+                    <div id="cards" class="mine">
+                        K Diamonds
+                    </div>
 
-    <div id="cards-suit2" class="mine">
-    </div>
+                </div>
 
-    <p id="winner-reveal">
-    </p>
+
+
+                <!-- <p>Your second card is:</p> -->
+                <div class="card">
+                    <div id="cards2" class="mine">
+                        J Spades
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="winner-reveal">
+        </div>
+    </div>
 </body>
+
 </html>

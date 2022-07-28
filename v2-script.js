@@ -1,4 +1,8 @@
 let roundState = "end";
+let comBox = document.querySelector('.community-box')
+let betButtons = document.querySelectorAll('.betting-buttons')
+
+// TODO: Enter names - prompt https://www.w3schools.com/jsref/met_win_prompt.asp
 
 let players = [
   {
@@ -7,7 +11,7 @@ let players = [
     chips: 0,
   },
   {
-    name: "Angeline",
+    name: "Popi",
     cards: [],
     chips: 0,
   },
@@ -22,7 +26,7 @@ let players = [
     chips: 0,
   },
   {
-    name: "Popi",
+    name: "Angeline",
     cards: [],
     chips: 0,
   },
@@ -33,35 +37,63 @@ let players = [
   },
 ];
 
+//Button State Functions 
+
+deactivateButton = (element) => {
+  element.style.backgroundColor = 'white';
+  element.style.color = 'black';
+}
+
+activateButton = (element) => {
+  element.style.backgroundColor = 'green';
+  element.style.color = 'white';
+}
+
+//Display all players' names
+
+for (let i = 1; i < 7; i++) {
+  let playerSpot = document.getElementById(`player-${i}`);
+  let finalName = document.createElement('p')
+  let p = i - 1;
+  finalName.innerHTML = players[p].name;
+  playerSpot.appendChild(finalName);
+}
+
 //Final Function: To be triggered on End Round --> After Winner has been displayed
+
+let buttons = document.getElementsByClassName('function-buttons')
+
+
+// for(let i = 0; i < buttons.length; i++) {
+//   buttons[i].addEventListener
+// }
+// Captured DOM elements 
 let startRound = document.querySelector("#start-round");
 let startBetting = document.getElementById("start-betting");
-
 let reveal = document.getElementById("reveal");
 let winnerReveal = document.querySelector("#winner-reveal");
+let cards = document.getElementById("cards");
+let cards2 = document.getElementById("cards2");
+let endRound = document.querySelector("#end-round");
+
+// Variables for tracking state
 let winner;
 let winningHand;
 let winnerTie;
 
-let cards = document.getElementById("cards");
-let cardsSuit = document.getElementById("cards-suit");
-let cards2 = document.getElementById("cards2");
-let cardsSuit2 = document.getElementById("cards-suit2");
-
-let endRound = document.querySelector("#end-round");
 if (roundState === "end") {
-  startRound.style.backgroundColor = "green";
-  startRound.style.color = "white";
+
+  activateButton(startRound)
+
   startRound.addEventListener(
     "click",
     (beginRound = () => {
-      
-      roundState = "ongoing";
 
-      //#1 Generate Deck
-      startRound.style.backgroundColor = "white";
-      startRound.style.color = "black";
+      roundState = "ongoing";
       
+      //#1 Generate Deck
+      deactivateButton(startRound)
+
       let suits = ["spades", "diamonds", "clubs", "hearts"];
       let values = [
         "A",
@@ -91,16 +123,15 @@ if (roundState === "end") {
           }
         }
         console.log(deck);
-        
-        playDeal.style.backgroundColor = "green";
-        playDeal.style.color = "white";
-        
+
+        activateButton(playDeal)
+
         return deck;
-        
+
       }
 
       generateDeck();
-      
+
       dealCard = (element) => {
         //#1 generate 2 random indices from cards
         let cardGiven = Math.floor(Math.random() * deck.length);
@@ -113,17 +144,14 @@ if (roundState === "end") {
       };
       //3.2 Function to Actually Deal Cards
       playDeal.addEventListener("click", firstDeal = () => {
-        playDeal.style.backgroundColor = "white";
-        playDeal.style.color = "black";
+        deactivateButton(playDeal)
         players.forEach((element) => dealCard(element));
         players.forEach((element) => dealCard(element));
-        let displayCards = players.find(
-          (element) => element.name === "Angeline"
-        );
-        cards.innerHTML = `${displayCards.cards[0].value}`;
-        cardsSuit.innerHTML = `${displayCards.cards[0].suit}`;
-        cards2.innerHTML = `${displayCards.cards[1].value}`;
-        cardsSuit2.innerHTML = `${displayCards.cards[1].suit}`;
+        // let displayCards = players.find(
+        //   (element) => element.name === "Angeline"
+        // );
+        cards.innerHTML = `${players[4].cards[0].value}${players[4].cards[0].suit}`;
+        cards2.innerHTML = `${players[4].cards[1].value}${players[4].cards[1].suit}`;
 
         // let myCards = document.createElement("div");
         // let me = players.find((element) => element.name === "Angeline");
@@ -142,54 +170,44 @@ if (roundState === "end") {
         //Occurs each round
         //Additional cards added each time cards are dealt
 
-        comDeal.style.backgroundColor = "green";
-        comDeal.style.color = "white";
-        
+        activateButton(comDeal)
+
       });
 
 
       let communityCards = [];
       comDeal.addEventListener("click", communityDeal = () => {
-        comDeal.style.backgroundColor = "white";
-        comDeal.style.color = "black";
+        deactivateButton(comDeal)
+        let cardGiven = Math.floor(Math.random() * deck.length);
+        communityCards.push(deck[cardGiven]);
+        deck.splice(cardGiven, 1);
+        console.log(communityCards);
+        console.log(deck.length);
 
-          let cardGiven = Math.floor(Math.random() * deck.length);
-          communityCards.push(deck[cardGiven]);
-          deck.splice(cardGiven, 1);
-          console.log(communityCards);
-          console.log(deck.length);
+        cardGiven = Math.floor(Math.random() * deck.length);
+        communityCards.push(deck[cardGiven]);
+        deck.splice(cardGiven, 1);
+        console.log(communityCards);
+        console.log(deck.length);
 
-          cardGiven = Math.floor(Math.random() * deck.length);
-          communityCards.push(deck[cardGiven]);
-          deck.splice(cardGiven, 1);
-          console.log(communityCards);
-          console.log(deck.length);
+        cardGiven = Math.floor(Math.random() * deck.length);
+        communityCards.push(deck[cardGiven]);
+        deck.splice(cardGiven, 1);
+        console.log(`here are the ${communityCards}`);
+        console.log(deck.length);
 
-          cardGiven = Math.floor(Math.random() * deck.length);
-          communityCards.push(deck[cardGiven]);
-          deck.splice(cardGiven, 1);
-          console.log(`here are the ${communityCards}`);
-          console.log(deck.length);
+        let comCards = document.querySelector("#com-cards");
+        comCards.innerHTML = `${communityCards[0].value}${communityCards[0].suit}`;
+        let comCards2 = document.querySelector("#com-cards2");
+        comCards2.innerHTML = `${communityCards[1].value}${communityCards[1].suit}`;
+        let comCards3 = document.querySelector("#com-cards3");
+        comCards3.innerHTML = `${communityCards[2].value}${communityCards[2].suit}`;
 
-          let comCards = document.querySelector("#com-cards");
-          comCards.innerHTML = `${communityCards[0].value}`;
-          let comCards2 = document.querySelector("#com-cards2");
-          comCards2.innerHTML = `${communityCards[0].suit}`;
-          let comCards3 = document.querySelector("#com-cards3");
-          comCards3.innerHTML = `${communityCards[1].value}`;
-          let comCards4 = document.querySelector("#com-cards4");
-          comCards4.innerHTML = `${communityCards[1].suit}`;
-          let comCards5 = document.querySelector("#com-cards5");
-          comCards5.innerHTML = `${communityCards[2].value}`;
-          let comCards6 = document.querySelector("#com-cards6");
-          comCards6.innerHTML = `${communityCards[2].suit}`;
-          startBetting.style.backgroundColor = "green";
-          startBetting.style.color = "white";
-        });
-       
-        startBetting.addEventListener("click", firstBet = () => {
-        startBetting.style.backgroundColor = "white";
-        startBetting.style.color = "black";
+        activateButton(startBetting)
+      });
+
+      startBetting.addEventListener("click", firstBet = () => {
+        deactivateButton(startBetting)
         let betChoice = ["check", "fold", "call the big blind", "raise"];
 
         players[0].bet =
@@ -215,355 +233,399 @@ if (roundState === "end") {
         console.log(players[3].bet);
         let fourthChoice = document.querySelector("#player-4 .bet-choice");
         fourthChoice.innerHTML = `${players[3].bet}`;
-
+//1.Add a class to all betting buttons
+//2.Target betting buttons through the 1 class
+//3.e.target to get the value of the button pressed
         let check = document.getElementById("check");
         let fold = document.getElementById("fold");
         let raise = document.getElementById("raise");
         let call = document.getElementById("call");
-        check.style.backgroundColor = "green";
-        check.style.color = "white";
-        fold.style.backgroundColor = "green";
-        fold.style.color = "white";
-        call.style.backgroundColor = "green";
-        call.style.color = "white";
-        raise.style.backgroundColor = "green";
-        raise.style.color = "white";
+
+    betButtons.forEach((element) => {
+      activateButton(element)
+    })
+   
+        let myChoice = document.querySelector("#player-5 .bet-choice");
+        myChoice.innerHTML = `My turn`;
+       
+        
+        
 
         makeChoice = (e) => {
+       
+          betButtons.forEach((element) => {
+            deactivateButton(element)
+          })
+
           players[4].bet = e.target.innerHTML;
           let myChoice = document.querySelector("#player-5 .bet-choice");
           myChoice.innerHTML = `${players[4].bet}`;
           console.log(players[4].bet);
-          check.style.backgroundColor = "white";
-          check.style.color = "black";
-          fold.style.backgroundColor = "white";
-          fold.style.color = "black";
-          call.style.backgroundColor = "white";
-          call.style.color = "black";
-          raise.style.backgroundColor = "white";
-          raise.style.color = "black";
 
           
-        };
-        check.addEventListener("click", makeChoice);
-        fold.addEventListener("click", makeChoice);
-        raise.addEventListener("click", makeChoice);
-        call.addEventListener("click", makeChoice);
-        players[5].bet =
-          betChoice[Math.floor(Math.random() * betChoice.length)];
+         
+          players[5].bet =
+            betChoice[Math.floor(Math.random() * betChoice.length)];
 
-        console.log(players[5].bet);
-        let sixthChoice = document.querySelector("#player-6 .bet-choice");
-        sixthChoice.innerHTML = `${players[5].bet}`;
+          console.log(players[5].bet);
+          let sixthChoice = document.querySelector("#player-6 .bet-choice");
+          sixthChoice.innerHTML = `${players[5].bet}`;
+
+
+        };
+
+       
+        betButtons.forEach((btn) => {
+          btn.addEventListener('click', makeChoice)
+        })
 
         console.log(
           "All Bets have been made, time to kick out those who folded, have the showndown, and reveal the winner."
         );
 
-        showdown.style.backgroundColor = "green";
-          showdown.style.color = "white";
-        
+        activateButton(showdown)
+
       });
 
       showdown.addEventListener("click",
 
-      showdownFunction = () => {
-        showdown.style.backgroundColor = "white";
-        showdown.style.color = "black";
+        showdownFunction = () => {
+          deactivateButton(showdown)
+          let remainingPlayers = [];
 
-        let remainingPlayers = [];
-
-        players.forEach((element) => {
-          if (element.bet !== "fold") {
-            remainingPlayers.push(element);
-          }
-        });
-        players.forEach((element) => {
-          if (element.bet !== "fold") {
-            console.log(`${element.name} remains`);
-          }
-        });
-
-        //Making the hands of each remaining player
-
-        remainingPlayers.forEach((element) => {
-          element.hand = [];
-          element.handNum;
-          element.hand.push(...element.cards);
-          element.hand.push(...communityCards);
-          element.arr = [];
-          console.log(
-            `${element.name} has a hand of ${element.hand[0].value}${element.hand[0].suit}${element.hand[1].value}${element.hand[1].suit}${element.hand[2].value}${element.hand[2].suit}${element.hand[3].value}${element.hand[3].suit}${element.hand[4].value}${element.hand[4].suit}`
-          );
-        });
-
-        //Comparing the hands of each remaining player
-
-        
-//Test for Royal Flush = Works
-        // remainingPlayers[1].hand[1].value = 1;
-        // remainingPlayers[1].hand[2].value = 13;
-        // remainingPlayers[1].hand[3].value = 11;
-        // remainingPlayers[1].hand[4].value = 12;
-        // remainingPlayers[1].hand[0].value = 10;
-
-        // remainingPlayers[1].hand[1].suit = "diamonds";
-        // remainingPlayers[1].hand[2].suit = "diamonds";
-        // remainingPlayers[1].hand[3].suit = "diamonds";
-        // remainingPlayers[1].hand[4].suit = "diamonds";
-        // remainingPlayers[1].hand[0].suit = "diamonds";
-
-// Test for Straight Flush = works
-        // remainingPlayers[1].hand[1].value = 1;
-        // remainingPlayers[1].hand[2].value = 2;
-        // remainingPlayers[1].hand[3].value = 3;
-        // remainingPlayers[1].hand[4].value = 4;
-        // remainingPlayers[1].hand[0].value = 5;
-
-        // remainingPlayers[1].hand[1].suit = "diamonds";
-        // remainingPlayers[1].hand[2].suit = "diamonds";
-        // remainingPlayers[1].hand[3].suit = "diamonds";
-        // remainingPlayers[1].hand[4].suit = "diamonds";
-        // remainingPlayers[1].hand[0].suit = "diamonds";
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Four-of-a-Kind = Works
-        // remainingPlayers[1].hand[1].value = 1;
-        // remainingPlayers[1].hand[2].value = 5;
-        // remainingPlayers[1].hand[3].value = 1;
-        // remainingPlayers[1].hand[4].value = 1;
-        // remainingPlayers[1].hand[0].value = 1;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Full House = Works
-        // remainingPlayers[1].hand[1].value = 1;
-        // remainingPlayers[1].hand[2].value = 5;
-        // remainingPlayers[1].hand[3].value = 1;
-        // remainingPlayers[1].hand[4].value = 1;
-        // remainingPlayers[1].hand[0].value = 5;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Flush = Works
-        // remainingPlayers[1].hand[1].suit = "diamonds";
-        // remainingPlayers[1].hand[2].suit = "diamonds";
-        // remainingPlayers[1].hand[3].suit = "diamonds";
-        // remainingPlayers[1].hand[4].suit = "diamonds";
-        // remainingPlayers[1].hand[0].suit = "diamonds";
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Straight = Works
-        // remainingPlayers[1].hand[1].value = 1;
-        // remainingPlayers[1].hand[2].value = 2;
-        // remainingPlayers[1].hand[3].value = 5;
-        // remainingPlayers[1].hand[4].value = 4;
-        // remainingPlayers[1].hand[0].value = 3;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Three-of-a-Kind = Works
-        // remainingPlayers[1].hand[1].value = 6;
-        // remainingPlayers[1].hand[2].value = 2;
-        // remainingPlayers[1].hand[3].value = 1;
-        // remainingPlayers[1].hand[4].value = 2;
-        // remainingPlayers[1].hand[0].value = 2;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for Two-Pair = Works
-        // remainingPlayers[1].hand[1].value = 6;
-        // remainingPlayers[1].hand[2].value = 1;
-        // remainingPlayers[1].hand[3].value = 1;
-        // remainingPlayers[1].hand[4].value = 2;
-        // remainingPlayers[1].hand[0].value = 6;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for One-Pair = Works
-        // remainingPlayers[1].hand[1].value = 2;
-        // remainingPlayers[1].hand[2].value = 1;
-        // remainingPlayers[1].hand[3].value = 1;
-        // remainingPlayers[1].hand[4].value = 6;
-        // remainingPlayers[1].hand[0].value = 7;
-
-        // console.log(remainingPlayers[1]);
-
-// Test for High Card
-        // remainingPlayers[1].hand[1].value = 3;
-        // remainingPlayers[1].hand[2].value = 1;
-        // remainingPlayers[1].hand[3].value = 2;
-        // remainingPlayers[1].hand[4].value = 6;
-        // remainingPlayers[1].hand[0].value = 7;
-
-        // remainingPlayers[1].hand[1].suit = "diamonds";
-        // remainingPlayers[1].hand[2].suit = "clubs";
-        // remainingPlayers[1].hand[3].suit = "spades";
-        // remainingPlayers[1].hand[4].suit = "hearts";
-        // remainingPlayers[1].hand[0].suit = "diamonds";
-
-        // console.log(remainingPlayers[1]);
-
-        remainingPlayers.forEach((element) => {
-          let suitOfficial = element.hand[0].suit;
-          let valOfficial = element.hand[0].value;
-          let valOfficial2 = element.hand[1].value;
-          element.arr = element.hand.map((element) => element.value)
-          element.hand.forEach((element) => {
-            if (element.value === "A") {
-              element.value = 1;
-            } else if (element.value === "J") {
-              element.value = 11;
-            } else if (element.value === "Q") {
-              element.value = 12;
-            } else if (element.value === "K") {
-              element.value = 13;
+          players.forEach((element) => {
+            if (element.bet !== "fold") {
+              remainingPlayers.push(element);
             }
-            console.log(element);
+          });
+          players.forEach((element) => {
+            if (element.bet !== "fold") {
+              console.log(`${element.name} remains`);
+            }
           });
 
-          element.arr.sort();
-          
-          const differenceAry = element.arr.slice(1).map(function(n, i) { return n - element.arr[i]; })
-          const areConsecutive =  differenceAry.every(value => value == 1)
-          console.log(areConsecutive)
-         
-          if (
-            element.hand.every((element) => element.suit === suitOfficial) &&
-            element.hand.find((element) => element.value === 1) &&
-            element.hand.find((element) => element.value === 13) &&
-            element.hand.find((element) => element.value === 12) &&
-            element.hand.find((element) => element.value === 11) &&
-            element.hand.find((element) => element.value === 10)
-          ) {
-            element.hand = `Royal Flush`;
-            element.handNum = 1;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
-          
-          else if (
-            element.hand.every((element) => element.suit === suitOfficial) &&
-            areConsecutive
-          ) {
-            element.hand = `Straight Flush`;
-            element.handNum = 2;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
+          //Making the hands of each remaining player
+          remainingPlayers.forEach((element) => {
+            if (element.name != players[4].name) {
 
-          //Check that middle value is equal to (one on left && 2 on right) OR (1 on right && 2 on left)
-          else if (
-            ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]))
-          || ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && (element.arr[2] === element.arr[3]))
+              let playerName = document.createElement('p')
+
+              let beforeHands = document.createElement('div')
+              comBox.appendChild(beforeHands)
+              beforeHands.classList.add('showdownHands');
+              beforeHands.style.display = 'flex'
+              beforeHands.style.flexDirection = 'column'
+
+              beforeHands.style.justifyContent = 'center'
+
+              beforeHands.style.width = '400px'
+              beforeHands.style.height = '100%'
+              beforeHands.style.padding = '0 10px 0 10px'
+              beforeHands.style.backgroundColor = 'lightgrey'
+              beforeHands.style.borderRadius = '5px'
+
+              playerName.innerHTML = `${element.name}`
+              beforeHands.appendChild(playerName);
+
+              let showHands = document.createElement('div')
+              beforeHands.appendChild(showHands);
+
+              let showHands1 = document.createElement('div')
+              showHands1.classList.add('card', 'mine')
+
+              showHands1.innerHTML = `${element.cards[0].value}${element.cards[0].suit}`
+
+
+              showHands.appendChild(showHands1)
+
+              let showHands2 = document.createElement('div')
+              showHands2.classList.add('card', 'mine')
+              showHands2.innerHTML = `${element.cards[1].value}${element.cards[1].suit}`
+
+              showHands.appendChild(showHands2);
+
+              showHands.style.display = 'flex';
+
+              showHands.style.height = '400px';
+            }
+
+          })
+          remainingPlayers.forEach((element) => {
+            element.hand = [];
+            element.handNum;
+            element.hand.push(...element.cards);
+            element.hand.push(...communityCards);
+            element.arr = [];
+            console.log(
+              `${element.name} has a hand of ${element.hand[0].value}${element.hand[0].suit}${element.hand[1].value}${element.hand[1].suit}${element.hand[2].value}${element.hand[2].suit}${element.hand[3].value}${element.hand[3].suit}${element.hand[4].value}${element.hand[4].suit}`
+            );
+          });
+
+          //Comparing the hands of each remaining player
+
+
+          //Test for Royal Flush = Works
+          // remainingPlayers[1].hand[1].value = 1;
+          // remainingPlayers[1].hand[2].value = 13;
+          // remainingPlayers[1].hand[3].value = 11;
+          // remainingPlayers[1].hand[4].value = 12;
+          // remainingPlayers[1].hand[0].value = 10;
+
+          // remainingPlayers[1].hand[1].suit = "diamonds";
+          // remainingPlayers[1].hand[2].suit = "diamonds";
+          // remainingPlayers[1].hand[3].suit = "diamonds";
+          // remainingPlayers[1].hand[4].suit = "diamonds";
+          // remainingPlayers[1].hand[0].suit = "diamonds";
+
+          // Test for Straight Flush = works
+          // remainingPlayers[1].hand[1].value = 1;
+          // remainingPlayers[1].hand[2].value = 2;
+          // remainingPlayers[1].hand[3].value = 3;
+          // remainingPlayers[1].hand[4].value = 4;
+          // remainingPlayers[1].hand[0].value = 5;
+
+          // remainingPlayers[1].hand[1].suit = "diamonds";
+          // remainingPlayers[1].hand[2].suit = "diamonds";
+          // remainingPlayers[1].hand[3].suit = "diamonds";
+          // remainingPlayers[1].hand[4].suit = "diamonds";
+          // remainingPlayers[1].hand[0].suit = "diamonds";
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Four-of-a-Kind = Works
+          // remainingPlayers[1].hand[1].value = 1;
+          // remainingPlayers[1].hand[2].value = 5;
+          // remainingPlayers[1].hand[3].value = 1;
+          // remainingPlayers[1].hand[4].value = 1;
+          // remainingPlayers[1].hand[0].value = 1;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Full House = Works
+          // remainingPlayers[1].hand[1].value = 1;
+          // remainingPlayers[1].hand[2].value = 5;
+          // remainingPlayers[1].hand[3].value = 1;
+          // remainingPlayers[1].hand[4].value = 1;
+          // remainingPlayers[1].hand[0].value = 5;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Flush = Works
+          // remainingPlayers[1].hand[1].suit = "diamonds";
+          // remainingPlayers[1].hand[2].suit = "diamonds";
+          // remainingPlayers[1].hand[3].suit = "diamonds";
+          // remainingPlayers[1].hand[4].suit = "diamonds";
+          // remainingPlayers[1].hand[0].suit = "diamonds";
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Straight = Works
+          // remainingPlayers[1].hand[1].value = 1;
+          // remainingPlayers[1].hand[2].value = 2;
+          // remainingPlayers[1].hand[3].value = 5;
+          // remainingPlayers[1].hand[4].value = 4;
+          // remainingPlayers[1].hand[0].value = 3;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Three-of-a-Kind = Works
+          // remainingPlayers[1].hand[1].value = 6;
+          // remainingPlayers[1].hand[2].value = 2;
+          // remainingPlayers[1].hand[3].value = 1;
+          // remainingPlayers[1].hand[4].value = 2;
+          // remainingPlayers[1].hand[0].value = 2;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for Two-Pair = Works
+          // remainingPlayers[1].hand[1].value = 6;
+          // remainingPlayers[1].hand[2].value = 1;
+          // remainingPlayers[1].hand[3].value = 1;
+          // remainingPlayers[1].hand[4].value = 2;
+          // remainingPlayers[1].hand[0].value = 6;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for One-Pair = Works
+          // remainingPlayers[1].hand[1].value = 2;
+          // remainingPlayers[1].hand[2].value = 1;
+          // remainingPlayers[1].hand[3].value = 1;
+          // remainingPlayers[1].hand[4].value = 6;
+          // remainingPlayers[1].hand[0].value = 7;
+
+          // console.log(remainingPlayers[1]);
+
+          // Test for High Card
+          // remainingPlayers[1].hand[1].value = 3;
+          // remainingPlayers[1].hand[2].value = 1;
+          // remainingPlayers[1].hand[3].value = 2;
+          // remainingPlayers[1].hand[4].value = 6;
+          // remainingPlayers[1].hand[0].value = 7;
+
+          // remainingPlayers[1].hand[1].suit = "diamonds";
+          // remainingPlayers[1].hand[2].suit = "clubs";
+          // remainingPlayers[1].hand[3].suit = "spades";
+          // remainingPlayers[1].hand[4].suit = "hearts";
+          // remainingPlayers[1].hand[0].suit = "diamonds";
+
+          // console.log(remainingPlayers[1]);
+
+          remainingPlayers.forEach((element) => {
+            let suitOfficial = element.hand[0].suit;
+            let valOfficial = element.hand[0].value;
+            let valOfficial2 = element.hand[1].value;
+            element.arr = element.hand.map((element) => element.value)
+            element.hand.forEach((element) => {
+              if (element.value === "A") {
+                element.value = 1;
+              } else if (element.value === "J") {
+                element.value = 11;
+              } else if (element.value === "Q") {
+                element.value = 12;
+              } else if (element.value === "K") {
+                element.value = 13;
+              }
+              console.log(element);
+            });
+
+            element.arr.sort();
+
+            const differenceAry = element.arr.slice(1).map(function (n, i) { return n - element.arr[i]; })
+            const areConsecutive = differenceAry.every(value => value == 1)
+            console.log(areConsecutive)
+
+            // CHeck if is a royal flush and return early if it is ... 
+            // https://javascript.plainenglish.io/6-tips-to-improve-your-conditional-statements-for-better-readability-56256c5a5245
+            if (
+              element.hand.every((element) => element.suit === suitOfficial) &&
+              element.hand.find((element) => element.value === 1) &&
+              element.hand.find((element) => element.value === 13) &&
+              element.hand.find((element) => element.value === 12) &&
+              element.hand.find((element) => element.value === 11) &&
+              element.hand.find((element) => element.value === 10)
             ) {
-            element.hand = `Four-of-a-Kind`;
-            element.handNum = 3;
-            console.log(element.arr)
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
-          //Check that middle value is equal to (2 on left) OR (2 on right) 
-          else if (
-            ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && (element.arr[3] === element.arr[4]))
-            || ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]) && (element.arr[0] === element.arr[1]))
-          ) {
-            element.hand = `Full House`;
-            element.handNum = 4;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
+              element.hand = `Royal Flush`;
+              element.handNum = 1;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
 
-         else if (element.hand.every(element => element.suit === suitOfficial)) {
-          element.hand = `Flush`;
-          element.handNum = 5;
-          console.log(`player ${element.name} has a ${element.hand}`);
-          return;
-          }
+            else if (
+              element.hand.every((element) => element.suit === suitOfficial) &&
+              areConsecutive
+            ) {
+              element.hand = `Straight Flush`;
+              element.handNum = 2;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
 
-          else if (
-            !element.hand.every((element) => element.suit === suitOfficial) &&
-            areConsecutive
-          ) {
-            element.hand = `Straight`;
-            element.handNum = 6;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
+            //Check that middle value is equal to (one on left && 2 on right) OR (1 on right && 2 on left)
+            else if (
+              ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]))
+              || ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && (element.arr[2] === element.arr[3]))
+            ) {
+              element.hand = `Four-of-a-Kind`;
+              element.handNum = 3;
+              console.log(element.arr)
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
+            //Check that middle value is equal to (2 on left) OR (2 on right) 
+            else if (
+              ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && (element.arr[3] === element.arr[4]))
+              || ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]) && (element.arr[0] === element.arr[1]))
+            ) {
+              element.hand = `Full House`;
+              element.handNum = 4;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
 
-          else if (
-            ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && !(element.arr[3] === element.arr[4]))
-            || ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]) && !(element.arr[0] === element.arr[1]))|| ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[1]) && !(element.arr[0] === element.arr[4]))
-          ) {
-            element.hand = `Three-of-a-Kind`;
-            element.handNum = 7;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
+            else if (element.hand.every(element => element.suit === suitOfficial)) {
+              element.hand = `Flush`;
+              element.handNum = 5;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
 
-          else if (
-            ((element.arr[0] == element.arr[1]) && (element.arr[2] === element.arr[3]))
-            || ((element.arr[4] === element.arr[3]) && (element.arr[2] === element.arr[1]) || ((element.arr[0] === element.arr[1]) && (element.arr[3] === element.arr[4])))) {
-            element.hand = `Two-Pair`;
-            element.handNum = 8;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
-          else if (
-            ((element.arr[0] === element.arr[1]) || (element.arr[1] === element.arr[2]) || (element.arr[2] === element.arr[3]) || (element.arr[3] === element.arr[4])))
-            {
-            element.hand = `One-Pair`;
-            element.handNum = 9;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
-          }
+            else if (
+              !element.hand.every((element) => element.suit === suitOfficial) &&
+              areConsecutive
+            ) {
+              element.hand = `Straight`;
+              element.handNum = 6;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
 
-          else if (!((element.arr[0] === element.arr[1]) || (element.arr[1] === element.arr[2]) || (element.arr[2] === element.arr[3]) || (element.arr[3] === element.arr[4]))){
-            element.hand = `High Card`;
-            element.handNum = 10;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            else if (
+              ((element.arr[2] === element.arr[1]) && (element.arr[2] === element.arr[0]) && !(element.arr[3] === element.arr[4]))
+              || ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[4]) && !(element.arr[0] === element.arr[1])) || ((element.arr[2] === element.arr[3]) && (element.arr[2] === element.arr[1]) && !(element.arr[0] === element.arr[4]))
+            ) {
+              element.hand = `Three-of-a-Kind`;
+              element.handNum = 7;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
+
+            else if (
+              ((element.arr[0] == element.arr[1]) && (element.arr[2] === element.arr[3]))
+              || ((element.arr[4] === element.arr[3]) && (element.arr[2] === element.arr[1]) || ((element.arr[0] === element.arr[1]) && (element.arr[3] === element.arr[4])))) {
+              element.hand = `Two-Pair`;
+              element.handNum = 8;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
+            else if (
+              ((element.arr[0] === element.arr[1]) || (element.arr[1] === element.arr[2]) || (element.arr[2] === element.arr[3]) || (element.arr[3] === element.arr[4]))) {
+              element.hand = `One-Pair`;
+              element.handNum = 9;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
+
+            else if (!((element.arr[0] === element.arr[1]) || (element.arr[1] === element.arr[2]) || (element.arr[2] === element.arr[3]) || (element.arr[3] === element.arr[4]))) {
+              element.hand = `High Card`;
+              element.handNum = 10;
+              console.log(`player ${element.name} has a ${element.hand}`);
+              return;
+            }
+          });
+          console.log("Round done!");
+          console.log(remainingPlayers[1]);
+
+
+          activateButton(reveal)
+
+          reveal.addEventListener("click", revealWinner = () => {
+            deactivateButton(reveal)
+
+            remainingPlayers.sort(function (a, b) {
+              return a.handNum - b.handNum;
+            });
+
+            winningHand = remainingPlayers[0].hand;
+            if (remainingPlayers[0].handNum != remainingPlayers[1].handNum && remainingPlayers[0].handNum != remainingPlayers[2].handNum && remainingPlayers[0].handNum != remainingPlayers[3].handNum && remainingPlayers[0].handNum != remainingPlayers[4].handNum && remainingPlayers[0].handNum != remainingPlayers[5].handNum) {
+              winner = remainingPlayers[0].name;
+              console.log(`The winner is ${winner} with a ${winningHand}!`)
+              winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
+            }
+            else {
+              winner = "tied";
+              console.log(`The winner is ${winner} with a ${winningHand}!`)
+              winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
+            }
+            activateButton(endRound)
           }
+          
+          )
+          
         });
-        console.log("Round done!");
-        console.log(remainingPlayers[1]);
 
-        
-      reveal.style.backgroundColor = "green";
-      reveal.style.color = "white";
-      reveal.addEventListener("click", revealWinner = () => {
-        reveal.style.backgroundColor = "white";
-        reveal.style.color = "black";
-        
-        remainingPlayers.sort(function(a,b) {
-        return a.handNum - b.handNum;
-        });
-        
-        winningHand = remainingPlayers[0].hand;
-        if (remainingPlayers[0].handNum != remainingPlayers[1].handNum && remainingPlayers[0].handNum != remainingPlayers[2].handNum && remainingPlayers[0].handNum != remainingPlayers[3].handNum && remainingPlayers[0].handNum != remainingPlayers[4].handNum && remainingPlayers[0].handNum != remainingPlayers[5].handNum)
-        {
-          winner = remainingPlayers[0].name;  
-          console.log(`The winner is ${winner} with a ${winningHand}!`)
-          winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
-        }
-  else {
-    winner = "tied";
-    console.log(`The winner is ${winner} with a ${winningHand}!`)
-    winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
-  }
-  endRound.style.backgroundColor = "green";
-  endRound.style.color = "white";
-}
-      
-)
-      });
-      
+      endRound.addEventListener("click", finishRound = () => {
+        deactivateButton(endRound)
 
-    endRound.addEventListener("click", finishRound = () => {
-        endRound.style.backgroundColor = "white";
-        endRound.style.color = "black";
         players.forEach((element) => {
           element.cards = [];
           element.chips = 0;
@@ -571,42 +633,60 @@ if (roundState === "end") {
           element.hand = [];
           console.log(players);
         });
-        let comCards = document.querySelector("#com-cards");
-        comCards.innerHTML = ``;
-        let comCards2 = document.querySelector("#com-cards2");
-        comCards2.innerHTML = ``;
-        let comCards3 = document.querySelector("#com-cards3");
-        comCards3.innerHTML = ``;
-        let comCards4 = document.querySelector("#com-cards4");
-        comCards4.innerHTML = ``;
-        let comCards5 = document.querySelector("#com-cards5");
-        comCards5.innerHTML = ``;
-        let comCards6 = document.querySelector("#com-cards6");
-        comCards6.innerHTML = ``;
 
-        let myChoice = document.querySelector("#player-5 .bet-choice");
-        myChoice.innerHTML = ``;
-        let firstChoice = document.querySelector("#player-1 .bet-choice");
-        firstChoice.innerHTML = ``;
-        let secondChoice = document.querySelector("#player-2 .bet-choice");
-        secondChoice.innerHTML = ``;
-        let thirdChoice = document.querySelector("#player-3 .bet-choice");
-        thirdChoice.innerHTML = ``;
-        let fourthChoice = document.querySelector("#player-4 .bet-choice");
-        fourthChoice.innerHTML = ``;
-        let sixthChoice = document.querySelector("#player-6 .bet-choice");
-        sixthChoice.innerHTML = ``;
+        let choiceDisplays = document.getElementsByClassName('bet-choice')
+        for (let i = 0; i < choiceDisplays.length; i++) {
+          choiceDisplays[i].innerText = `No bet`;
+        } //SUCCESSFULLY replaces all bet choices
+      
+let cardDisplays = document.getElementsByClassName('card')
+for (let i = 0; i < cardDisplays.length; i++) {
+  cardDisplays[i].innerText = ``;
+} //SUCCESSFULLY deletes all contents on Player Cards && Community Cards
 
-        cards.innerHTML = ``;
-        cardsSuit.innerHTML = ``;
-        cards2.innerHTML = ``;
-        cardsSuit2.innerHTML = ``;
+        let beforeHands = document.getElementsByClassName('showdownHands')
+        for (let i = 0; i < beforeHands.length; i++) {
+          beforeHands[i].innerHTML = ``;
+          beforeHands[i].style.backgroundColor = ``;
+        
+        } //SUCCESSFULLY removes showdown hands from center of table
+      
         winnerReveal.innerHTML = ``;
 
-        startRound.style.backgroundColor = "green";
-        startRound.style.color = "white";
+        activateButton(startRound)
         startRound.addEventListener("click", beginRound);
       })
     })
   );
 }
+
+
+
+//1. At end of showdown Evals: Create a new HTML Element for each card that each player has who is remaining
+//Reveal everyone's cards: 1. Print name & cards underneath: Exactly the same way as MY CARDS, just in a row beneath my cards
+
+//Winner revealed later=
+
+//End of CSS
+
+// 2. ADD CHIP NUMBERS
+
+
+//3. ADD 3 Rounds as game intends
+
+//4. Refactor Code
+
+// 5. DONE
+
+
+//What is properity learning? Refactoring, using all concepts? CSS, animations,
+
+//1. Semantic HTML 2. CSS 3. Functional JS
+
+//1. Refactoring 2. Docuemnting the read.md epxlaining waht you ddi and why you decied to use Classes, or what you used, chocies you made and
+
+//1. Documentation
+
+//
+
+//--> Just what you think is best for a first project, what is most improtnat, and stuff that is best to get right

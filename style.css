@@ -1,10 +1,16 @@
+* {
+box-sizing: border-box;
+}
+
 button {
-    padding: 20px;
+    padding: 5px;
     border: none;
     border-radius: 10px;
     width: 50px;
-    font-size: 10px;
-    height: 50px;
+    font-size: 8px;
+    height: 100%;
+    font-weight: bold;
+    
 }
 
 p {
@@ -16,44 +22,215 @@ button:hover {
 }
 
 body {
+    text-align: center;
+    width: 800px;
+    height: 800px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.body-box {
+    position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     align-items: center;
-    width: 750px;
-    height: 500px;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
 }
 
 .buttons-box {
-    width: 500px;
-    height: 100px;
+    width: 800px;
+    height: 6%;
 }
 
 .buttons {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#start-round {
+    text-align: center;
 }
 
 #table {
-    background-color: black;
-    width: 100%;
-    height: 100%;
-    border-radius: 100px;
+    max-width: 1000px;
+    background-color: darkgreen;
+    width: 95%;
+    height: 55%;
+    border-radius: 200px;
+    border: solid black 5px;
 }
 
 .player-all {
     display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
 }
-.user {
+
+.players1 {
     display: flex;
-    justify-content: center;
-    color: red;
-    width: 250px;
+    justify-content: space-around;
+}
+.players2 {
+    display: flex;
+    justify-content: space-around;
 }
 
-.community {
-    color: blue
+.players11 {
+    width: 80%;
+}
+
+.players22 {
+    width: 80%;
+}
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 150px;
+}
+
+.fa-user-ninja {
+    color: white;
+    padding-top: 10px;
+}
+
+.bet-choice {
+    background-color: lightgrey;
+    color: black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 0px;
+}
+
+.user p:first-of-type {
+    font-weight: bold;
+    color: lightblue;
+}
+
+#player-5 p:first-of-type{
+    color: red;
+}
+
+.community-all p {
+    color: lightblue;
+    margin: 0;
+}
+
+.community-box {
+    width: 400px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    width: 400px;
+    height: 25%;
+    padding: 0 10px 0 10px;
+}
+
+.community-all {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: space-between;
+    color: lightblue;
+    font-weight: bold;
+
+    width: 100%;
+    height: 100%;
+   
+   
+    
+}
+
+.community-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: black;
+    font-weight: 400;
+    height: 100%;
+}
+
+.myCards {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.cards-box {
+    width: 400px;
+    height: 25%;
+    padding: 0 10px 0 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.cards-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cards-des p {
+    margin: 0;
+    font-weight: bold;
+    padding: 0;
+}
+
+
+
+.mine {
+    font-weight: 400;
+}
+
+h1 {
+    margin: 0px;
+}
+
+.card {
+    background-color: white;
+    height: 75%;
+    border-radius: 5px;
+    width: 100px;
+    padding: 10px;
+}
+
+.com-des p {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    color: lightblue;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.playing {
+    height: 150px
+}
+
+.user {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#player-5 p:last-of-type {
+    font-weight: bold;
+}
+
+.community-box {
+    display: flex
 }
