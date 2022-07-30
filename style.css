@@ -11,7 +11,6 @@ button {
     font-size: 8px;
     height: 100%;
     font-weight: bold;
-    
 }
 
 p {
@@ -45,7 +44,7 @@ body {
     height: 6%;
 }
 
-.buttons {
+.buttons, #betting-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -118,19 +117,14 @@ body {
     color: lightblue;
 }
 
-#player-5 p:first-of-type{
-    color: red;
-}
-
 .card {
     background-color: white;
     height: 75%;
     border-radius: 5px;
-    width: 100px;
+    flex-basis: 85px;
     padding: 10px;
     font-weight: 400;
 }
-
 
 .community-cards, .showdown-cards, .my-cards {
     display: flex;
@@ -140,14 +134,17 @@ body {
     color: black;
     font-weight: 400;
     height: 100%;
-    width: 400px;
+    min-width: 400px;
+    max-width: 700px;
 }
 
 /* Community Box contains Showdown Cards as well as Community Cards */
 .community-box, .cards-box {
     display: flex;
+    /* flex-wrap: wrap; */
     justify-content: center;
     min-width: 400px;
+    max-width: 700px;
     height: 25%;
     padding: 0 10px 0 10px;
     background-color: lightgrey;
@@ -157,6 +154,7 @@ body {
 .com-des {
     display: flex;
     justify-content: space-around;
+    width: 100%;
 }
 
 .com-des p {
@@ -168,6 +166,10 @@ body {
     font-weight: bold;
 }
 
-#player-5 p:last-of-type {
+#player-4 p:last-of-type {
     font-weight: bold;
+}
+
+#player-4 p:first-of-type{
+    color: red;
 }

@@ -1,15 +1,18 @@
+"use strict"
 // let roundState = "end";
 
 //#1 Capture DOM Elements
 let startRound = document.querySelector("#start-round");
 let comBox = document.querySelector('.community-box')
-let betButtons = document.querySelectorAll('.betting-buttons')
+
+let betButtons = document.getElementsByClassName('betting-buttons')
+let buttonsContainer = document.querySelector('.buttons')
+
 let myCards = document.querySelector('.my-cards')
 let communityCards = document.querySelector('.community-cards')
 let myChoice = document.querySelector("#player-4 .bet-choice");
 let comDes = document.querySelector('.com-des')
-let showdownCards = document.createElement('div')
-showdownCards.classList.add('showdown-cards')
+
 let cardDisplays = document.getElementsByClassName('card')
 let choiceDisplays = document.getElementsByClassName('bet-choice')
 
@@ -72,6 +75,8 @@ let cardGiven;
 
 let remainingPlayers = [];
 
+const handOptions = ['Royal Flush', 'Straight Flush', 'Four-of-a-Kind', 'Full House', 'Flush', 'Straight', 'Three-of-a-Kind', 'Two-Pair', 'One-Pair', 'High Card']
+
 let winner;
 let winningHand;
 let winnerTie;
@@ -79,18 +84,20 @@ let winnerTie;
 //#3 Functions 
 //#3.1 Button State Functions 
 
-deactivateButton = (element) => {
+const deactivateButton = (element, callbackFunction) => {
   element.style.backgroundColor = 'white';
   element.style.color = 'black';
+  element.removeEventListener('click', callbackFunction)
 }
 
-activateButton = (element) => {
+const activateButton = (element, callbackFunction) => {
   element.style.backgroundColor = 'green';
   element.style.color = 'white';
+  element.addEventListener('click', callbackFunction)
 }
 
 //#3.2 Cleanup UI
-removeDisplay = (element, content) => element.innerText = content
+const removeDisplay = (element, content) => element.innerText = content
 
 //#3.3 Display all players' names
 let i = 0;
@@ -104,7 +111,7 @@ players.forEach((element) => {
 })
 
 //#3.4 Button-trigger functions #1 Start Round #2 Deal Cards to Players #3 Deal Community Cards #4 Start Betting #5 Make Choice #6 Showdown #7 Reveal Winner #8 End Round
-generateDeck = () => {
+const generateDeck = () => {
   //Set Timeout begins 
   suits.forEach(element => {
     let cardSuit = element;
@@ -117,7 +124,7 @@ generateDeck = () => {
 }
 
 //Used for Dealing EACH card for players && community
-dealCard = (element) => {
+const dealCard = (element) => {
   //#1 generate 2 random indices from cards
   let cardGiven = Math.floor(Math.random() * deck.length);
   element.push(deck[cardGiven]);
@@ -127,66 +134,102 @@ dealCard = (element) => {
 
 //3.2 Function to Actually Deal Cards
 // playDeal.addEventListener("click", 
-firstDeal = () => {
-  deactivateButton(playDeal)
+const firstDeal = () => {
   players.forEach((element) => dealCard(element.cards));
   players.forEach((element) => dealCard(element.cards));
 }
 
-startBetting = () => {
-   let betChoice = ["check", "fold", "call the big blind", "raise"];
+const startBetting = () => {
+    console.log('Start betting function initiated')
+    let betChoice = ["check", "fold", "call the big blind", "raise"];
+ 
+    players[0].bet =
+      betChoice[Math.floor(Math.random() * betChoice.length)];
+    console.log(players[0].bet);
+    let firstChoice = document.querySelector("#player-0 .bet-choice");
+    firstChoice.innerHTML = `${players[0].bet}`;
+ 
+    players[1].bet =
+      betChoice[Math.floor(Math.random() * betChoice.length)];
+    console.log(players[1].bet);
+    let secondChoice = document.querySelector("#player-1 .bet-choice");
+    secondChoice.innerHTML = `${players[1].bet}`;
+ 
+    players[2].bet =
+      betChoice[Math.floor(Math.random() * betChoice.length)];
+    console.log(players[2].bet);
+    let thirdChoice = document.querySelector("#player-2 .bet-choice");
+    thirdChoice.innerHTML = `${players[2].bet}`;
+ 
+    players[3].bet =
+      betChoice[Math.floor(Math.random() * betChoice.length)];
+    console.log(players[3].bet);
+    let fourthChoice = document.querySelector("#player-3 .bet-choice");
+    fourthChoice.innerHTML = `${players[3].bet}`;
 
-   players[0].bet =
-     betChoice[Math.floor(Math.random() * betChoice.length)];
-   console.log(players[0].bet);
-   let firstChoice = document.querySelector("#player-0 .bet-choice");
-   firstChoice.innerHTML = `${players[0].bet}`;
+    myChoice.innerHTML = `My turn`;
 
-   players[1].bet =
-     betChoice[Math.floor(Math.random() * betChoice.length)];
-   console.log(players[1].bet);
-   let secondChoice = document.querySelector("#player-1 .bet-choice");
-   secondChoice.innerHTML = `${players[1].bet}`;
+    let buttonsBox = document.createElement('div')
+    buttonsBox.setAttribute('id','betting-box')
+    
+    buttonsBox.addEventListener('click', handleClick)
+    betChoice.forEach(element => {
+     let createButtons = document.createElement('button')
+     createButtons.classList.add('.betting-buttons')
+     createButtons.innerText = element;
+     createButtons.style.backgroundColor = 'green'
+     createButtons.style.color = 'white'
 
-   players[2].bet =
-     betChoice[Math.floor(Math.random() * betChoice.length)];
-   console.log(players[2].bet);
-   let thirdChoice = document.querySelector("#player-2 .bet-choice");
-   thirdChoice.innerHTML = `${players[2].bet}`;
+     buttonsBox.appendChild(createButtons)
+     
+     buttonsContainer.appendChild(buttonsBox)
+     })
 
-   players[3].bet =
-     betChoice[Math.floor(Math.random() * betChoice.length)];
-   console.log(players[3].bet);
-   let fourthChoice = document.querySelector("#player-3 .bet-choice");
-   fourthChoice.innerHTML = `${players[3].bet}`;
-  }
+    function handleClick(e) {
+ // buttonsBox.removeEventListener('click', makeChoice(e))
+        // buttonsBox.removeDisplay()
+    
+        // betButtons.forEach(element => element.parentNode.removeChild(button))
 
-  makeChoice = (e) => {
-  
-    betButtons.forEach((element) => {
-      deactivateButton(element)
-    })
+        // buttonsBox.removeEventListener('click', handleClick)
+        
+        //Or getting its parent and removing its child, empty out a list
 
-    players[4].bet = e.target.innerHTML;
-    let myChoice = document.querySelector("#player-4 .bet-choice");
-    myChoice.innerHTML = `${players[4].bet}`;
-    console.log(players[4].bet);
-   
-    players[5].bet = betChoice[Math.floor(Math.random() * betChoice.length)];
+       
 
-    console.log(players[5].bet);
-    let sixthChoice = document.querySelector("#player-5 .bet-choice");
-    sixthChoice.innerHTML = `${players[5].bet}`;
+        players[4].bet = e.target.innerHTML;
+        let myChoice = document.querySelector("#player-4 .bet-choice");
+        myChoice.innerHTML = e.target.innerHTML;
+        console.log(players[4].bet);
+       
+        players[5].bet = betChoice[Math.floor(Math.random() * betChoice.length)];
+    
+        console.log(players[5].bet);
+        let sixthChoice = document.querySelector("#player-5 .bet-choice");
+        sixthChoice.innerHTML = `${players[5].bet}`;
 
-  }
 
-showdown = () => {
+        activateButton(startRound, showdownFunction)
+        startRound.innerHTML = `Showdown`;
+        buttonsBox.remove()
+      }
+     
+    //  betButtons.forEach((element) => {
+    //     element.style.backgroundColor = 'green';
+    //     element.style.color = 'white';
+    //     element.addEventListener('click', makeChoice(e))
+    //  })
+
+    //  betButtons.forEachaddEventListener('click', makeChoice(e)) 
+}
+
+const showdownFunction = () => {
+console.log('Showdown Function initiated')
     players.forEach((element) => {
         if (element.bet !== "fold") {
         remainingPlayers.push(element);
         }
-    });
-
+});
     //Making the hands of each remaining player
     remainingPlayers.forEach((element) => {
       if (element.name != players[4].name) {
@@ -195,13 +238,15 @@ showdown = () => {
 
             comDes.appendChild(playerName);
             comDes.style.width = `${comBox.style.width}`
-
+            
+            let showdownCards = document.createElement('div')
+            showdownCards.classList.add('showdown-cards')
             comBox.appendChild(showdownCards)
 
             element.cards.forEach((element) => {
                 let thisCard = document.createElement('div')
                 thisCard.classList.add('card')
-                thisCard.innerHTML = `${element.value}${element.suit}`
+                thisCard.innerHTML = `${element.value}<br>${element.suit}`
 
                 showdownCards.appendChild(thisCard)
             })
@@ -220,152 +265,191 @@ showdown = () => {
             let suitOfficial = element.hand[0].suit;
             let valOfficial = element.hand[0].value;
             let valOfficial2 = element.hand[1].value;
-            element.arr = element.hand.map((element) => element.value)
-            element.hand.forEach((element) => {
-            if (element.value === "A") {
-                element.value = 1;
-            } else if (element.value === "J") {
-                element.value = 11;
-            } else if (element.value === "Q") {
-                element.value = 12;
-            } else if (element.value === "K") {
-                element.value = 13;
+            element.arr = element.hand.map((el) => el.value)
+            element.hand.forEach((el) => {
+            if (el.value === "A") {
+                el.value = 14;
+            } else if (el.value === "J") {
+                el.value = 11;
+            } else if (el.value === "Q") {
+                el.value = 12;
+            } else if (el.value === "K") {
+                el.value = 13;
             }
-            console.log(element);
             });
 
             element.arr.sort();
 
             const differenceAry = element.arr.slice(1).map(function (n, i) { return n - element.arr[i]; })
             const areConsecutive = differenceAry.every(value => value == 1)
-            console.log(areConsecutive)
 
+            const royalFlush = element.hand.every(el => el.value > 9)
+            const sameSuits = element.hand.every((el) => el.suit === element.hand[0].suit)
+
+            const firstFourOfAKind = element.arr.every(el => {if(el != element.arr[0])
+                {
+                    el === element.arr[2]
+                }}
+            )
+
+            const secondFourOfAKind = element.arr.every(el => {if(el != element.arr[4])
+                {
+                    el === element.arr[2]
+                }
+              }
+            )
+
+            const firstFullHouse = element.arr.every(el => {if(el != element.arr[0] && el != element.arr[1])
+                {
+                    el === element.arr[2]
+                }}
+            )
+
+            const secondFullHouse = element.arr.every(el => {if(el != element.arr[4] && el != element.arr[3])
+                {
+                    el === element.arr[2]
+                }
+              }
+            )
+
+            const thirdFullHouse = element.arr.every(el => {if(el != element.arr[0] && el != element.arr[4])
+                {
+                    el === element.arr[2]
+                }
+              }
+            )
+
+            const firstTwoPair = element.arr.every(el => {if(el != element.arr[0])
+                {
+                    if (el === element.arr[4] || el === element.arr[2]) {
+                        return true;
+                    }
+                }
+            }
+            )
+            
+            const secondTwoPair = element.arr.every(el => {if(el != element.arr[4])
+                {
+                    if (el === element.arr[0] || el === element.arr[2]) {
+                        return true;
+                    }
+                }
+              }
+            )
+
+            let onePair;
+            for (let i = 0; i < element.arr.length; i++) {
+                for (let k = i + 1; k < element.arr.length; k++) {
+                    if(element.arr[i] === element.arr[k]){
+                        return onePair = true
+                    }
+                }
+            }
+//Royal Flush 
             // https://javascript.plainenglish.io/6-tips-to-improve-your-conditional-statements-for-better-readability-56256c5a5245
-            if (element.hand.every((element) => element.suit === suitOfficial) 
-            && element.hand.find((element) => element.value === 1) 
-            && element.hand.find((element) => element.value === 13) 
-            && element.hand.find((element) => element.value === 12) 
-            && element.hand.find((element) => element.value === 11) 
-            && element.hand.find((element) => element.value === 10)) 
+            if (sameSuits && areConsecutive && royalFlush) 
             {
-            element.hand = `Royal Flush`;
-            element.handNum = 1;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[0];
+            element.handNum = 0
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            // return;
             }
-
-            else if (element.hand.every((element) => element.suit === suitOfficial) 
+//Straight Flush
+            else if (sameSuits 
             && areConsecutive) 
             {
-            element.hand = `Straight Flush`;
-            element.handNum = 2;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[1];
+            element.handNum = 1
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
+//Four of a Kind
             //Check that middle value is equal to (one on left && 2 on right) OR (1 on right && 2 on left)
-            else if (((element.arr[2] === element.arr[1]) 
-            && (element.arr[2] === element.arr[3]) 
-            && (element.arr[2] === element.arr[4]))
-            || ((element.arr[2] === element.arr[1]) 
-            && (element.arr[2] === element.arr[0]) 
-            && (element.arr[2] === element.arr[3]))) 
+            else if (firstFourOfAKind
+            || secondFourOfAKind) 
             {
-            element.hand = `Four-of-a-Kind`;
-            element.handNum = 3;
-            console.log(element.arr)
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[2];
+            element.handNum = 2
+        
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
+//Full House
             //Check that middle value is equal to (2 on left) OR (2 on right) 
-            else if (((element.arr[2] === element.arr[1]) 
-            && (element.arr[2] === element.arr[0]) 
-            && (element.arr[3] === element.arr[4]))
-            || ((element.arr[2] === element.arr[3]) 
-            && (element.arr[2] === element.arr[4]) 
-            && (element.arr[0] === element.arr[1]))) 
+            else if ((firstFullHouse
+            && (element.arr[0] === element.arr[1]))
+            || (secondFullHouse
+            && (element.arr[4] === element.arr[3]))
+            || (thirdFullHouse 
+            && (element.arr[4] === element.arr[0])) )
             {
-            element.hand = `Full House`;
-            element.handNum = 4;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[3];
+            element.handNum = 3
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
-            else if (element.hand.every(element => element.suit === suitOfficial)) 
+//Flush
+            else if (sameSuits) 
             {
-            element.hand = `Flush`;
-            element.handNum = 5;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[4];
+            element.handNum = 4
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
-            else if (!element.hand.every((element) => element.suit === suitOfficial) 
+//Straight
+            else if (!sameSuits 
             && areConsecutive) 
             {
-            element.hand = `Straight`;
-            element.handNum = 6;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[5];
+            element.handNum = 5
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
-            else if (((element.arr[2] === element.arr[1]) 
-            && (element.arr[2] === element.arr[0]) 
-            && !(element.arr[3] === element.arr[4]))
-            || ((element.arr[2] === element.arr[3]) 
-            && (element.arr[2] === element.arr[4]) 
-            && !(element.arr[0] === element.arr[1])) 
-            || ((element.arr[2] === element.arr[3]) 
-            && (element.arr[2] === element.arr[1]) 
-            && !(element.arr[0] === element.arr[4]))) 
+//Three-of-a-Kind
+            else if (firstFullHouse
+            || secondFullHouse 
+            || thirdFullHouse) 
             {
-            element.hand = `Three-of-a-Kind`;
-            element.handNum = 7;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[6];
+            element.handNum = 6
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
+//Two Pair
 
-            else if (((element.arr[0] == element.arr[1]) 
-            && (element.arr[2] === element.arr[3]))
-            || ((element.arr[4] === element.arr[3]) 
-            && (element.arr[2] === element.arr[1]) 
-            || ((element.arr[0] === element.arr[1]) 
-            && (element.arr[3] === element.arr[4])))) 
+            else if (firstTwoPair || secondTwoPair) 
             {
-            element.hand = `Two-Pair`;
-            element.handNum = 8;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[7];
+            element.handNum = 7
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
-            else if (((element.arr[0] === element.arr[1]) 
-            || (element.arr[1] === element.arr[2]) 
-            || (element.arr[2] === element.arr[3]) 
-            || (element.arr[3] === element.arr[4]))) 
+//One Pair
+            else if (onePair) 
             {
-            element.hand = `One-Pair`;
-            element.handNum = 9;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[8];
+            element.handNum = 8
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
-
-            else if (!((element.arr[0] === element.arr[1]) 
-            || (element.arr[1] === element.arr[2]) 
-            || (element.arr[2] === element.arr[3]) 
-            || (element.arr[3] === element.arr[4]))) 
+//High Card
+            else
             {
-            element.hand = `High Card`;
-            element.handNum = 10;
-            console.log(`player ${element.name} has a ${element.hand}`);
-            return;
+            element.hand = handOptions[9];
+            element.handNum = 9
+            // console.log(`player ${element.name} has a ${element.hand}`);
+            //return;
             }
         }
     )
+    startRound.innerHTML = 'Reveal Winner'
+    activateButton(startRound, revealWinner);
+
 }
 
-revealWinner = () => {
+const revealWinner = () => {
     remainingPlayers.sort(function (a, b) {
-        return a.handNum - b.handNum;
+        a.handNum - b.handNum;
     });
 
     winningHand = remainingPlayers[0].hand;
@@ -379,11 +463,12 @@ revealWinner = () => {
         winner = "tied";
         winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
     }
+    
+    startRound.innerHTML = 'End Round'
+    activateButton(startRound, finishRound)
 }
 
-finishRound = () => {
-    deactivateButton(startRound)
-
+const finishRound = () => {
     //Reset Players' Cards, Chips, Bet, & Hand in Database
     players.forEach((element) => {
         element.cards = [];
@@ -397,105 +482,71 @@ finishRound = () => {
         
     //Remove Player, Community & Showdown Cards from Display 
     cardDisplays.forEach(element => removeDisplay(element, ``))
+    let showdownCards = document.querySelector('.showdownCards')
+    showdownCards.remove()
 
     //Remove Winner Reveal from Display 
-    removeDisplay(winnerReveal, ``)
+
+    //Live Node List: More than 1 script
+
+    winnerReveal.remove();
+    // removeDisplay(winnerReveal, ``)
+
+    //Removing:
+    //const ul = document.querySelector('ul')
+    //const li = document.querySelector('li')
+    //li.remove()
+    startRound.innerHTML = 'Start Round'
+        activateButton(startRound, beginRound)
 }
       
-beginRound = () => {
+const beginRound = () => {
+    deactivateButton(startRound, beginRound)
     if(startRound.innerHTML === "Start Round") {
-        deactivateButton(startRound)
         generateDeck()
 
         startRound.innerHTML = "Deal cards to players";
-        activateButton(startRound)
+        activateButton(startRound, beginRound)
     }
 
     else if (startRound.innerHTML === "Deal cards to players") {
-        deactivateButton(startRound)
         firstDeal()
 
         players[4].cards.forEach(element => { 
             let thisCard = document.createElement('div')
             thisCard.classList.add('card')
 
-            thisCard.innerHTML = `${element.value}${element.suit}`
+            thisCard.innerHTML = `${element.value}<br>${element.suit}`
             myCards.appendChild(thisCard)
         })
 
         startRound.innerHTML = 'Deal Community Cards'
-        activateButton(startRound)
+        activateButton(startRound, beginRound)
     }
 
     else if (startRound.innerHTML === 'Deal Community Cards') {
-        deactivateButton(startRound)
-
         //Call Functions 
         dealCard(communityChosen)
         dealCard(communityChosen)
         dealCard(communityChosen)
 
         //Add Community Cards to Display
-
         communityChosen.forEach(element => {
             let thisCard = document.createElement('div')
 
             thisCard.classList.add('card')
 
-            thisCard.innerHTML = `${element.value}${element.suit}`
+            thisCard.innerHTML = `${element.value}<br>${element.suit}`
             communityCards.appendChild(thisCard)
         })
 
         startRound.innerHTML = `Start Betting`;
-        activateButton(startRound)
+        activateButton(startRound, startBetting)
     }
 
     //!!While generating deck, play animation of a deck forming, make sure it takes an amount of time 
-
-    else if(startRound.innerHTML = 'Start Betting') {
-        deactivateButton(startRound)
-        startBetting();
-
-        betButtons.forEach((element) => {
-            activateButton(element)
-        })
-
-        myChoice.innerHTML = `My turn`;
-
-        betButtons.forEach((btn) => {
-            btn.addEventListener('click', makeChoice)
-        })
-
-        startRound.innerHTML = 'Showdown';
-        activateButton(startRound)
-    }
-
-    else if (startRound.innerHTML = 'Showdown') {
-        deactivateButton(showdown)
-        showdown();
-
-        startRound.innerHTML = 'Reveal Winner'
-        activateButton(startRound);
-    }
-
-    else if (startRound.innerHTML = 'Reveal Winner') {
-        deactivateButton(startRound)
-        revealWinner();
-
-        startRound.innerHTML = 'End Round'
-        activateButton(startRound)
-    }
-
-    else if(startRound.innerHTML = 'End Round') {
-        deactivateButton(startRound)
-        finishRound();
-
-        startRound.innerHTML = 'Start Round'
-        activateButton(startRound)
-    }
+    
 }
 
 //Actual running JavaScript
-activateButton(startRound)
-
-startRound.addEventListener('click', beginRound)
+activateButton(startRound, beginRound)
