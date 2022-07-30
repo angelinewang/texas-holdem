@@ -1,5 +1,6 @@
 * {
 box-sizing: border-box;
+margin: 0;
 }
 
 button {
@@ -29,6 +30,7 @@ body {
 }
 
 .body-box {
+    margin: auto;
     position: absolute;
     display: flex;
     flex-direction:column;
@@ -93,9 +95,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 
     width: 150px;
+    height: 150px
 }
 
 .fa-user-ninja {
@@ -108,7 +111,6 @@ body {
     color: black;
     border-radius: 5px;
     padding: 5px;
-    margin-top: 0px;
 }
 
 .user p:first-of-type {
@@ -120,117 +122,52 @@ body {
     color: red;
 }
 
-.community-all p {
-    color: lightblue;
-    margin: 0;
-}
-
-.community-box {
-    width: 400px;
-    background-color: lightgrey;
-    border-radius: 5px;
-    width: 400px;
-    height: 25%;
-    padding: 0 10px 0 10px;
-}
-
-.community-all {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    align-items: space-between;
-    color: lightblue;
-    font-weight: bold;
-
-    width: 100%;
-    height: 100%;
-   
-   
-    
-}
-
-.community-cards {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    color: black;
-    font-weight: 400;
-    height: 100%;
-}
-
-.myCards {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-}
-
-.cards-box {
-    width: 400px;
-    height: 25%;
-    padding: 0 10px 0 10px;
-    background-color: lightgrey;
-    border-radius: 5px;
-}
-
-.cards-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.cards-des p {
-    margin: 0;
-    font-weight: bold;
-    padding: 0;
-}
-
-
-
-.mine {
-    font-weight: 400;
-}
-
-h1 {
-    margin: 0px;
-}
-
 .card {
     background-color: white;
     height: 75%;
     border-radius: 5px;
     width: 100px;
     padding: 10px;
+    font-weight: 400;
+}
+
+
+.community-cards, .showdown-cards, .my-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    color: black;
+    font-weight: 400;
+    height: 100%;
+    width: 400px;
+}
+
+/* Community Box contains Showdown Cards as well as Community Cards */
+.community-box, .cards-box {
+    display: flex;
+    justify-content: center;
+    min-width: 400px;
+    height: 25%;
+    padding: 0 10px 0 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.com-des {
+    display: flex;
+    justify-content: space-around;
 }
 
 .com-des p {
-    padding: 0;
-    margin: 0;
     font-weight: bold;
     color: lightblue;
 }
 
-p {
-    margin: 0;
-    padding: 0;
-}
-
-.playing {
-    height: 150px
-}
-
-.user {
-    display: flex;
-    justify-content: space-evenly;
+.cards-des p {
+    font-weight: bold;
 }
 
 #player-5 p:last-of-type {
     font-weight: bold;
-}
-
-.community-box {
-    display: flex
 }
