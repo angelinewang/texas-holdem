@@ -3,7 +3,7 @@
 
 //#1 Capture DOM Elements
 let startRound = document.querySelector("#start-round");
-let comBox = document.querySelector('.community-box')
+let handsBox = document.querySelector('.hands-box')
 
 let betButtons = document.getElementsByClassName('betting-buttons')
 let buttonsContainer = document.querySelector('.buttons')
@@ -11,7 +11,7 @@ let buttonsContainer = document.querySelector('.buttons')
 let myCards = document.querySelector('.my-cards')
 let communityCards = document.querySelector('.community-cards')
 let myChoice = document.querySelector("#player-4 .bet-choice");
-let comDes = document.querySelector('.com-des')
+let handsDes = document.querySelector('.hands-des')
 
 let cardDisplays = document.getElementsByClassName('card')
 let choiceDisplays = document.getElementsByClassName('bet-choice')
@@ -97,7 +97,7 @@ const activateButton = (element, callbackFunction) => {
 }
 
 //#3.2 Cleanup UI
-const removeDisplay = (element, content) => element.innerText = content
+const removeDisplay = (el, content) => el.innerText = content
 
 //#3.3 Display all players' names
 let i = 0;
@@ -140,6 +140,7 @@ const firstDeal = () => {
 }
 
 const startBetting = () => {
+  deactivateButton(startRound, startBetting)
     console.log('Start betting function initiated')
     let betChoice = ["check", "fold", "call the big blind", "raise"];
  
@@ -194,9 +195,7 @@ const startBetting = () => {
         // buttonsBox.removeEventListener('click', handleClick)
         
         //Or getting its parent and removing its child, empty out a list
-
-       
-
+      
         players[4].bet = e.target.innerHTML;
         let myChoice = document.querySelector("#player-4 .bet-choice");
         myChoice.innerHTML = e.target.innerHTML;
@@ -208,10 +207,11 @@ const startBetting = () => {
         let sixthChoice = document.querySelector("#player-5 .bet-choice");
         sixthChoice.innerHTML = `${players[5].bet}`;
 
-
+        buttonsBox.remove()
+     
         activateButton(startRound, showdownFunction)
         startRound.innerHTML = `Showdown`;
-        buttonsBox.remove()
+        
       }
      
     //  betButtons.forEach((element) => {
@@ -224,24 +224,27 @@ const startBetting = () => {
 }
 
 const showdownFunction = () => {
+  deactivateButton(startRound, showdownFunction)
 console.log('Showdown Function initiated')
     players.forEach((element) => {
         if (element.bet !== "fold") {
         remainingPlayers.push(element);
+        // console.log(remainingPlayers) --> Gets the correct remaining players
         }
-});
-    //Making the hands of each remaining player
+    });
+
+    //Makes & Displays the Cards of Remaining Players before values are altered
     remainingPlayers.forEach((element) => {
       if (element.name != players[4].name) {
             let playerName = document.createElement('p')
             playerName.innerHTML = `${element.name}`
 
-            comDes.appendChild(playerName);
-            comDes.style.width = `${comBox.style.width}`
+            handsDes.appendChild(playerName);
+            handsDes.style.width = `${handsBox.style.width}`
             
             let showdownCards = document.createElement('div')
             showdownCards.classList.add('showdown-cards')
-            comBox.appendChild(showdownCards)
+            handsBox.appendChild(showdownCards)
 
             element.cards.forEach((element) => {
                 let thisCard = document.createElement('div')
@@ -252,20 +255,19 @@ console.log('Showdown Function initiated')
             })
         }
     })
-
         remainingPlayers.forEach((element) => {
-            element.hand = [];
-            element.handNum;
-            element.hand.push(...element.cards);
-            element.hand.push(...communityChosen);
+            element.hand = [];   
+
+            element.hand.push(...(element.cards.map(element => element)));
+            element.hand.push(...(communityChosen.map(element => element)));
             element.arr = [];
+
+
+
         })
 
         remainingPlayers.forEach((element) => {
-            let suitOfficial = element.hand[0].suit;
-            let valOfficial = element.hand[0].value;
-            let valOfficial2 = element.hand[1].value;
-            element.arr = element.hand.map((el) => el.value)
+          
             element.hand.forEach((el) => {
             if (el.value === "A") {
                 el.value = 14;
@@ -278,183 +280,209 @@ console.log('Showdown Function initiated')
             }
             });
 
+             //Test for Royal Flush = Works
+
+            element.arr = element.hand.map((el) => el.value)
             element.arr.sort();
 
-            const differenceAry = element.arr.slice(1).map(function (n, i) { return n - element.arr[i]; })
-            const areConsecutive = differenceAry.every(value => value == 1)
+            element.differenceAry = element.arr.slice(1).map(function (n, i) { return n - element.arr[i]; })
+            element.areConsecutive = element.differenceAry.every(value => value == 1)
 
-            const royalFlush = element.hand.every(el => el.value > 9)
-            const sameSuits = element.hand.every((el) => el.suit === element.hand[0].suit)
+            element.royalFlush = element.hand.every(el => el.value > 9)
+            element.sameSuits = element.hand.every((el) => el.suit === element.hand[0].suit)
 
-            const firstFourOfAKind = element.arr.every(el => {if(el != element.arr[0])
-                {
-                    el === element.arr[2]
-                }}
-            )
+            // let firstFourOfAKind = element.arr.every(el => {if(el != element.arr[0])
+            //     {
+            //         el === element.arr[2]
+            //     }}
+            // )
 
-            const secondFourOfAKind = element.arr.every(el => {if(el != element.arr[4])
-                {
-                    el === element.arr[2]
-                }
-              }
-            )
+            // let secondFourOfAKind = element.arr.every(el => {if(el != element.arr[4])
+            //     {
+            //         el === element.arr[2]
+            //     }
+            //   }
+            // )
+                     
+            element.first4 = element.arr.map(element => element)
+            element.first4.shift()
+            // console.log(element.first4)
+            element.firstFourOfAKind = element.first4.every((el) => el === element.arr[2])
 
-            const firstFullHouse = element.arr.every(el => {if(el != element.arr[0] && el != element.arr[1])
-                {
-                    el === element.arr[2]
-                }}
-            )
+            // console.log(element.firstFourOfAKind)
 
-            const secondFullHouse = element.arr.every(el => {if(el != element.arr[4] && el != element.arr[3])
-                {
-                    el === element.arr[2]
-                }
-              }
-            )
+            element.second4 = element.arr.map(element => element)
+            element.second4.pop()
+            // console.log(element.second4)
+            element.secondFourOfAKind = element.second4.every(el => el === element.arr[2])
 
-            const thirdFullHouse = element.arr.every(el => {if(el != element.arr[0] && el != element.arr[4])
-                {
-                    el === element.arr[2]
-                }
-              }
-            )
+            // console.log(element.secondFourOfAKind)
 
-            const firstTwoPair = element.arr.every(el => {if(el != element.arr[0])
-                {
-                    if (el === element.arr[4] || el === element.arr[2]) {
-                        return true;
-                    }
-                }
-            }
-            )
+            // console.log(element.arr)
+
+            element.firstThird4 = element.first4.map(element => element)
+            element.firstThird4.shift();
+            element.firstFullHouse = element.firstThird4.every(el => el === element.arr[2])
+            // console.log(element.first4)
             
-            const secondTwoPair = element.arr.every(el => {if(el != element.arr[4])
-                {
-                    if (el === element.arr[0] || el === element.arr[2]) {
-                        return true;
-                    }
-                }
-              }
-            )
+            element.secondThird4 = element.second4.map(element => element)
+            element.secondThird4.pop()
+            element.secondFullHouse = element.secondThird4.every(el => el === element.arr[2])
+            // console.log(element.second4)
 
-            let onePair;
-            for (let i = 0; i < element.arr.length; i++) {
-                for (let k = i + 1; k < element.arr.length; k++) {
-                    if(element.arr[i] === element.arr[k]){
-                        return onePair = true
-                    }
-                }
+            element.third4 = element.arr.map(element => element)
+            element.third4.pop() 
+            element.third4.shift()
+            // console.log(element.third4)
+            element.thirdFullHouse = element.third4.every(el => el === element.arr[2])
+
+            element.firstTwoPair = (element.first4[0] === element.arr[0] && element.first4[1] === element.first4[2]) 
+         
+            element.secondTwoPair = (element.second4[3] === element.arr[4] && element.second4[1] === element.second4[2]) 
+
+            function checkOnePair(arr) {
+              let result = false
+              for (let i = 0; i < arr.length; i++) {
+                 for (let k = i + 1; k < arr.length; k++) {
+                     if(arr[i] === arr[k]) {
+                         result = true
+                         break
+                         //Breaks out of all the for loops
+                     }
+                 }
+             }
+             return result
             }
-//Royal Flush 
+            element.onePair = checkOnePair(element.arr)
+            //Royal Flush 
             // https://javascript.plainenglish.io/6-tips-to-improve-your-conditional-statements-for-better-readability-56256c5a5245
-            if (sameSuits && areConsecutive && royalFlush) 
+            if (element.sameSuits && element.areConsecutive && element.royalFlush) 
             {
             element.hand = handOptions[0];
-            element.handNum = 0
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 0;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             // return;
             }
 //Straight Flush
-            else if (sameSuits 
-            && areConsecutive) 
+            else if (element.sameSuits 
+            && element.areConsecutive) 
             {
             element.hand = handOptions[1];
-            element.handNum = 1
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 1;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Four of a Kind
             //Check that middle value is equal to (one on left && 2 on right) OR (1 on right && 2 on left)
-            else if (firstFourOfAKind
-            || secondFourOfAKind) 
+           
+            else if (element.firstFourOfAKind
+            || element.secondFourOfAKind) 
             {
             element.hand = handOptions[2];
-            element.handNum = 2
+            element.handNum = 2;
         
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Full House
             //Check that middle value is equal to (2 on left) OR (2 on right) 
-            else if ((firstFullHouse
+            else if ((element.firstFullHouse
             && (element.arr[0] === element.arr[1]))
-            || (secondFullHouse
+            || (element.secondFullHouse
             && (element.arr[4] === element.arr[3]))
-            || (thirdFullHouse 
+            || (element.thirdFullHouse 
             && (element.arr[4] === element.arr[0])) )
             {
             element.hand = handOptions[3];
-            element.handNum = 3
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 3;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Flush
-            else if (sameSuits) 
+            else if (element.sameSuits) 
             {
             element.hand = handOptions[4];
-            element.handNum = 4
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 4;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Straight
-            else if (!sameSuits 
-            && areConsecutive) 
+            else if (!element.sameSuits 
+            && element.areConsecutive) 
             {
             element.hand = handOptions[5];
-            element.handNum = 5
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 5;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Three-of-a-Kind
-            else if (firstFullHouse
-            || secondFullHouse 
-            || thirdFullHouse) 
+            else if (element.firstFullHouse
+            || element.secondFullHouse 
+            || element.thirdFullHouse) 
             {
             element.hand = handOptions[6];
-            element.handNum = 6
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 6;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //Two Pair
 
-            else if (firstTwoPair || secondTwoPair) 
+            else if (element.firstTwoPair || element.secondTwoPair) 
             {
             element.hand = handOptions[7];
-            element.handNum = 7
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 7;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
 //One Pair
-            else if (onePair) 
+            else if (element.onePair) 
             {
             element.hand = handOptions[8];
-            element.handNum = 8
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 8;
+            console.log(`player ${element.name} has a ${element.handNum}`);
+           
             //return;
             }
 //High Card
             else
             {
             element.hand = handOptions[9];
-            element.handNum = 9
-            // console.log(`player ${element.name} has a ${element.hand}`);
+            element.handNum = 9;
+            console.log(`player ${element.name} has a ${element.handNum}`);
             //return;
             }
-        }
-    )
+          })
+    
     startRound.innerHTML = 'Reveal Winner'
     activateButton(startRound, revealWinner);
-
+    // let removeButtons = document.getElementById('betting-box')
+    // removeButtons.remove()
 }
 
 const revealWinner = () => {
+  console.log(communityCards)
+  console.log(remainingPlayers)
+  deactivateButton(startRound, revealWinner)
+  // let removeButtons = document.getElementById('betting-box')
+  //   removeButtons.remove()
+  console.log(remainingPlayers)
     remainingPlayers.sort(function (a, b) {
-        a.handNum - b.handNum;
+       return a.handNum - b.handNum;
     });
 
-    winningHand = remainingPlayers[0].hand;
+    console.log(remainingPlayers)
 
-    if (remainingPlayers[0].handNum != remainingPlayers[1].handNum && remainingPlayers[0].handNum != remainingPlayers[2].handNum && remainingPlayers[0].handNum != remainingPlayers[3].handNum && remainingPlayers[0].handNum != remainingPlayers[4].handNum && remainingPlayers[0].handNum != remainingPlayers[5].handNum) {
+    winningHand = remainingPlayers[0].hand;
+    // If the winning hand is displayed as object, object, object, it means it has not been evaluated into one of the hand options
+
+  let winnerReveal = document.getElementById("winner-reveal")
+
+   let ifTied = remainingPlayers.map(element => element)
+
+   ifTied.shift();
+
+   if(ifTied.every(element => element.handNum != remainingPlayers[0].handNum))
+   {
         winner = remainingPlayers[0].name;
         winnerReveal.innerHTML = `The winner is ${winner} with a ${winningHand}!`
     }
@@ -469,6 +497,7 @@ const revealWinner = () => {
 }
 
 const finishRound = () => {
+  deactivateButton(startRound, finishRound)
     //Reset Players' Cards, Chips, Bet, & Hand in Database
     players.forEach((element) => {
         element.cards = [];
@@ -476,20 +505,31 @@ const finishRound = () => {
         element.bet = "";
         element.hand = [];
         });
+//Cleanup incomplete, did not have enough time
+
+    communityChosen = [];
 
     //Replace Bet Choices on Display
+    let choiceDisplays = document.querySelectorAll('.bet-choice')
     choiceDisplays.forEach(element => removeDisplay(element, `No bet`))
         
     //Remove Player, Community & Showdown Cards from Display 
-    cardDisplays.forEach(element => removeDisplay(element, ``))
-    let showdownCards = document.querySelector('.showdownCards')
-    showdownCards.remove()
+    let cardDisplays = document.querySelectorAll('.card')
+    cardDisplays.forEach(element => element.remove())
+
+    let showdownCards = document.querySelectorAll('.showdownCards')
+    showdownCards.forEach(element => element.remove())
+
+    handsBox.innerHTML = ``;
+    handsDes.innerHTML = ``;
+
+    remainingPlayers = [];
 
     //Remove Winner Reveal from Display 
 
     //Live Node List: More than 1 script
-
-    winnerReveal.remove();
+let winnerReveal = document.getElementById('winner-reveal')
+    winnerReveal.innerHTML = ``;
     // removeDisplay(winnerReveal, ``)
 
     //Removing:

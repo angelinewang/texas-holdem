@@ -57,10 +57,12 @@ body {
 }
 
 #table {
+    display: flex;
+    flex-direction: column;
     max-width: 1000px;
     background-color: darkgreen;
     width: 95%;
-    height: 55%;
+    flex-basis: 55%;
     border-radius: 200px;
     border: solid black 5px;
 }
@@ -121,12 +123,14 @@ body {
     background-color: white;
     height: 75%;
     border-radius: 5px;
-    flex-basis: 85px;
+    flex-basis: 75px;
     padding: 10px;
     font-weight: 400;
+    font-size: 12px;
+    max-width: 100%;
 }
 
-.community-cards, .showdown-cards, .my-cards {
+.community-cards, .my-cards {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -138,13 +142,26 @@ body {
     max-width: 700px;
 }
 
+.showdown-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    color: black;
+    font-weight: 400;
+    height: 100%;
+    min-width: 190px;
+    max-width: 700px;
+    border: 2px lightblue solid;
+}
+
 /* Community Box contains Showdown Cards as well as Community Cards */
-.community-box, .cards-box {
+.community-box, .cards-box, .hands-box {
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: center;
     min-width: 400px;
-    max-width: 700px;
+    max-width: 100%;
     height: 25%;
     padding: 0 10px 0 10px;
     background-color: lightgrey;
@@ -157,8 +174,17 @@ body {
     width: 100%;
 }
 
+.hands-des{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
 .com-des p {
     font-weight: bold;
+    color: lightblue;
+}
+.hands-des p {
     color: lightblue;
 }
 
