@@ -6,7 +6,7 @@ This was completed between July 23rd - Aug 6th 2022 as a part of the 1st General
 
 ## Part 2 Deployment link
 
-This project can be found on my person Github at: 
+This project can be found on my person Github at: https://angelinewang.github.io/texas-holdem/
 
 ## Part 3 Getting Started/Code Installation
 
