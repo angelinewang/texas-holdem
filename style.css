@@ -155,10 +155,8 @@ body {
     border: 2px lightblue solid;
 }
 
-/* Community Box contains Showdown Cards as well as Community Cards */
 .community-box, .cards-box, .hands-box {
     display: flex;
-    /* flex-wrap: wrap; */
     justify-content: center;
     min-width: 400px;
     max-width: 100%;
