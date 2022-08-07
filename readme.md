@@ -101,7 +101,7 @@ End of Brief
 
 Here were the 3 key stages of development:
 
-1. Setting up the game layout in HTML and CSS
+#### 1. Setting up the game layout in HTML and CSS
 
 Here is an HTML code snippet:
 
@@ -138,7 +138,7 @@ I have not yet experimented with other icon libraries, so I could not efficientl
 I used Flexbox as this is what I've become most familiar with through practice with Flexbox Froggy and Flexbox Zombies. I would like to experiment more with CSS Grid next time as I gain more experience with it.  
 
 
-2. Creating a button that could be activated and deactivated when relevant 
+#### 2. Creating a button that could be activated and deactivated when relevant 
 
 Here is a code snippet:
 
@@ -164,19 +164,19 @@ At first, I had created a separate button for each function, but I figured it wo
 
 I hoped to create the most clean UI I could and also make the UI less confusing by only displaying buttons when they were relevant. This also prevented the previously occurring problem of accidentally clicking and triggering of functions at the wrong stage of the game. 
 
-3. Allowing the button to initiate the appropriate logic at each stage of the game
+#### 3. Allowing the button to initiate the appropriate logic at each stage of the game
 
 Here is a code snippet from deck generation:
 
-const generateDeck = () => {
-  suits.forEach(element => {
-    let cardSuit = element;
-    values.forEach(element => {
-        let card = { value: element, suit: cardSuit };
-        deck.push(card);
+    const generateDeck = () => {
+    suits.forEach(element => {
+        let cardSuit = element;
+        values.forEach(element => {
+            let card = { value: element, suit: cardSuit };
+            deck.push(card);
+        })
     })
-  })
-}
+    }
 
 Here is a code snippet from evaluating if a hand is a Four-of-a-Kind:
 
@@ -246,7 +246,7 @@ I consulted MDN Docs, Stack Overflow, and also confirmed the knowledge I found w
 
 Here are 3 interesting problems I solved:
 
-1. Adding cards into the middle of the table as they were dealt
+#### 1. Adding cards into the middle of the table as they were dealt
 
 --> This was at first difficult because I could not figure out how to expand the table as necessary in order to allow the space. 
 
@@ -298,7 +298,7 @@ Here's how I displayed the Showdown hands:
             }
         })
 
-2. Evaluating players' hands
+#### 2. Evaluating players' hands
 
 --> This was at first difficult because it was hard to accurately test if the logic was working 
 
@@ -325,7 +325,8 @@ Here's a section of code evaluating if the player has a Straight Flush:
         }
     })
 
-3. Adding appearing/disappearing buttons only necessary during betting
+#### 3. Adding appearing/disappearing buttons only necessary during betting
+
 --> This was at first difficult because I did not know how to remove buttons from the page 
 
 --> I also faced a problem with the buttons I intended to remove, reappearing later in the game: I did not figure out why this issue was happening, but I did resolve it by moving some code around 
@@ -369,17 +370,17 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 ## Part 11 Key Learnings/Takeaways
 
-1. HTML 
+#### 1. HTML 
 
 = Naming classes and IDs more efficiently
 
 = Only add the elements necessary beyond elements that can be created dynamically through JS 
 
-2. CSS
+#### 2. CSS
 
 = Further practice using Flexbox, managing containers, and grouping selectors efficiently to write DRY code 
 
-3. JavaScript
+#### 3. JavaScript
 
 = Using `break` in a `for` loop exists all loops it may be nested under
 
@@ -387,7 +388,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 = Keep functions as tight as possible 
 
-4. Shortcut
+#### 4. Shortcut
 
 = Breaking up tasks into HTML, CSS, JavaScript, and Final Review 
 
@@ -397,13 +398,13 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 --> But also got through many things a lot faster than I thought, without thinking about the specific checklist items 
 
-5. Standups 
+#### 5. Standups 
 
 = Every day we discussed what we'd done, any problems we've had, and what our intentions for the day were
 
 --> Fun and interactive process 
 
-6. Project Management
+#### 6. Project Management
 
 = Peddling the logic, design, and usability considerations all at once 
 
@@ -415,7 +416,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 --> I was constantly dialling my timeline backwards and forwards to accommodate for unexpected complexities & surprisingly fast-sailing parts of the project
 
-7. README File 
+#### 7. README File 
 
 = Write it simultaneously while writing code
 
@@ -429,7 +430,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 --> W/ bullet points
 
-8. Most Important Learning: Simplify! 
+#### 8. Most Important Learning: Simplify! 
 
 **Simplify game even further in the beginning**
 
@@ -443,7 +444,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 = Allow complexity of logic to evolve only at the same pace of code quality
 
-9. How has this project shaped me as an engineer?
+#### 9. How has this project shaped me as an engineer?
 
 It is the first working application I've thought out and completed on my own. It has shown me what, even at this early stage of knowledge-building, is possible. It has proved to me that with more time and learning, the possibilities will grow quickly. 
 
@@ -457,19 +458,19 @@ Some unnecessary comments have been left inside the code for the sake of future 
 
 In the future, I'd be interested in adding the following improvements:
 
-1. Players' chip count 
+#### 1. Players' chip count 
 
 --> Reason: This would mimic the true nature of a poker game more accurately and allow players to strategize more ie Betting decisions can be made in a more informed manner. Right now, all the betting choices other than folding are functionally the same. 
 
 --> How: This would involve more JS math logic 
 
-2. Player name input window 
+#### 2. Player name input window 
 
 --> Reason: This would add interactivity and customization to the game
 
 --> How: This would involve a window popup where an input would be requested and stored as a value inside the player object 
 
-3. Animations between each step of the round
+#### 3. Animations between each step of the round
 
 ie Shuffling of cards when they are being generated
 
@@ -477,13 +478,13 @@ ie Shuffling of cards when they are being generated
 
 --> How: Add setIntervals to the JS in order to wait for animations to be played before enabling the button for the next step of the game, would potentially also involve keyframes that would be triggered by the press of each button, but the details would still need to be researched
 
-4. Make the code formatting/style more consistent
+#### 4. Make the code formatting/style more consistent
 
 --> Reason: It would be great if the code was more organized so parts of it would be easier to find for a foreign reader. Right now, due to indecision on the most efficient way to write the code, functions and displays are done in varying ways. It would be reasonable to write them in more predictable ways in the future.
 
 --> How: With more practice, I will find out what works best and stick to it. 
 
-5. Add Brief Focused for My Game 
+#### 5. Add Brief Focused for My Game 
 
 --> Reason: Poker has very specific rules & structure, so it would have been good to have a players' manual to accommodate for new players. Also, this game is a simplified variation of Texas Hold'em, so a brief would eliminate confusion. 
 
