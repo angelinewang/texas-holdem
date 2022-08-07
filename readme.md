@@ -14,7 +14,7 @@ This is a simplified version of Texas Hold'em, with the following discrepancies:
 
 ## Part 2 Deployment link
 
-This project can be found on my person Github at: 
+This project can be found on my person Github at this [Link](https://angelinewang.github.io/texas-holdem/). 
 
 ## Part 3 Getting Started/Code Installation
 
@@ -369,11 +369,71 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 ## Part 11 Key Learnings/Takeaways
 
-Technologies and tools I feel more confident with include HTML, CSS, JavaScript and Shortcut. 
+1. HTML 
 
-For HTML, I learned how to name classes and IDs more efficiently and only add the elements necessary beyond elements that can be created dynamically through JS. 
+= Naming classes and IDs more efficiently
 
-For CSS, I had a chance to further practice using Flexbox, managing containers, and grouping selectors efficiently to write DRY code. 
+= Only add the elements necessary beyond elements that can be created dynamically through JS 
+
+2. CSS
+
+= Further practice using Flexbox, managing containers, and grouping selectors efficiently to write DRY code 
+
+3. JavaScript
+
+= Using `break` in a `for` loop exists all loops it may be nested under
+
+--> Unlike how `return` only exists current loop
+
+= Keep functions as tight as possible 
+
+4. Shortcut
+
+= Breaking up tasks into HTML, CSS, JavaScript, and Final Review 
+
+--> Into manageable chunks
+
+= I did end up ditching much of what was planned
+
+--> But also got through many things a lot faster than I thought, without thinking about the specific checklist items 
+
+5. Standups 
+
+= Every day we discussed what we'd done, any problems we've had, and what our intentions for the day were
+
+--> Fun and interactive process 
+
+6. Project Management
+
+= Peddling the logic, design, and usability considerations all at once 
+
+--> Although I did end up keeping design and usability considerations to an absolute minimum 
+
+--> My main focus for this project was to 1. Understand all the code I was writing 2. Write & rewrite my JavaScript logic in the most concise way possible
+
+= Setting a challenging, but realistic timeline 
+
+--> I was constantly dialling my timeline backwards and forwards to accommodate for unexpected complexities & surprisingly fast-sailing parts of the project
+
+7. README File 
+
+= Write it simultaneously while writing code
+
+--> Keep points in mind: Would allow for a more comprehensive & well-edited README
+
+= Difficult to recall details of thinking process/challenges/feelings & emotions after the fact 
+
+--> Closer real-time documentation
+
+= Add notes into a draft README that is well-organized 
+
+--> W/ bullet points
+
+8. Most Important Learning: Simplify! 
+
+**Simplify game even further in the beginning**
+
+= Look at the big picture/broad strokes of the game
 
 = Create very strong bare bones
 
