@@ -2,7 +2,7 @@
 
 ## Part 1 Description
 
-Completed between July 23rd - Aug 6th 2022 as part of 1st General Assembly SEI Project to create a game.
+Completed between July 23rd - Aug 6th 2022.
 
 This is a simplified version of Texas Hold'em, with the following discrepancies:
 
