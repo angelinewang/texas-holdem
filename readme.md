@@ -2,7 +2,7 @@
 
 ## Part 1 Description
 
-Completed between July 23rd - Aug 6th 2022.
+Completed independently between July 23rd - Aug 6th 2022.
 
 This is a simplified version of Texas Hold'em, with the following discrepancies:
 
@@ -20,11 +20,11 @@ This project can be found on my person Github at this [Link](https://angelinewan
 
 The code can be accessed by forking this public repository into your remote Github repository, cloning it into your local repository, and then opening the folder up in a text editor.
 
-## Part 4 Timeframe & Working Team
+<!-- ## Part 4 Timeframe & Working Team
 
-We were given 2 weeks to complete this project independently. 
+We were given 2 weeks to complete this project independently.  -->
 
-## Part 5 Technologies Used
+## Part 4 Technologies Used
 #### Front-end
 - HTML 
 - CSS
@@ -86,7 +86,7 @@ Your app must:
 * **[Github Pages](https://pages.github.com)** _(for hosting your game)_
 
  -->
-## Part 6 Planning
+## Part 5 Planning
 
 To plan this project, I used [Shortcut](https://app.shortcut.com/) and divided the tasks into HTML, CSS, and JavaScript. First setting up some basic HTML, and then going into the game logic, before finally applying some CSS, which is based off of a model image located at ./Final CSS.jpg
 
@@ -97,7 +97,7 @@ Pseudocode was also applied in the JavaScript in order to section out the differ
 ______
 End of Brief
 
-## Part 7 Build/Code Process
+## Part 6 Build/Code Process
 
 Here were the 3 key stages of development:
 
@@ -213,7 +213,7 @@ I tested the functions in chronological order so that I could ensure dependencie
 This chronological process also allowed me to identify gaps in logic I could not predict. For example, the need to create a new array of players who had not folded, before evaluating each player's hand. 
 
 
-## Part 8 Challenges
+## Part 7 Challenges
 
 Here are a technical challenge I faced:
 
@@ -242,7 +242,7 @@ Here is the code I wrote:
 
 I consulted MDN Docs, Stack Overflow, and also confirmed the knowledge I found with my General Assembly instructor, who agreed it was correct to use the remove method. 
 
-## Part 9 Wins
+## Part 8 Wins
 
 Here are 3 interesting problems I solved:
 
@@ -368,7 +368,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
     }
 
 
-## Part 10 Key Learnings/Takeaways
+## Part 9 Key Learnings/Takeaways
 
 #### 1. HTML 
 
@@ -448,13 +448,13 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 It is the first working application I've thought out and completed on my own. It has shown me what, even at this early stage of knowledge-building, is possible. It has proved to me that with more time and learning, the possibilities will grow quickly. 
 
-## Part 11 Bugs
+## Part 10 Bugs
 
 There are no bugs to the best of my knowledge. Although without a test-driven process, it has been difficult to thoroughly ensure bug-free code. Much of the testing has been done by eye and through random trials of the game. 
 
 Some unnecessary comments have been left inside the code for the sake of future improvements.
 
-## Part 12 Future Improvements
+## Part 11 Future Improvements
 
 In the future, I'd be interested in adding the following improvements:
 
