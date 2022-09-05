@@ -30,7 +30,7 @@ We were given 2 weeks to complete this project independently.
 - CSS
 - JavaScript
 
-## Part 6 Brief
+<!-- ## Part 6 Brief
 Start of Brief given by [General Assembly](https://generalassemb.ly/)
 ______
 #### ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project #1: The Game
@@ -85,8 +85,8 @@ Your app must:
 * **[MDN Javascript Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)** _(a great reference for all things Vanilla Javascript)_
 * **[Github Pages](https://pages.github.com)** _(for hosting your game)_
 
-
-## Part 7 Planning
+ -->
+## Part 6 Planning
 
 To plan this project, I used [Shortcut](https://app.shortcut.com/) and divided the tasks into HTML, CSS, and JavaScript. First setting up some basic HTML, and then going into the game logic, before finally applying some CSS, which is based off of a model image located at ./Final CSS.jpg
 
@@ -97,7 +97,7 @@ Pseudocode was also applied in the JavaScript in order to section out the differ
 ______
 End of Brief
 
-## Part 8 Build/Code Process
+## Part 7 Build/Code Process
 
 Here were the 3 key stages of development:
 
@@ -213,7 +213,7 @@ I tested the functions in chronological order so that I could ensure dependencie
 This chronological process also allowed me to identify gaps in logic I could not predict. For example, the need to create a new array of players who had not folded, before evaluating each player's hand. 
 
 
-## Part 9 Challenges
+## Part 8 Challenges
 
 Here are a technical challenge I faced:
 
@@ -242,7 +242,7 @@ Here is the code I wrote:
 
 I consulted MDN Docs, Stack Overflow, and also confirmed the knowledge I found with my General Assembly instructor, who agreed it was correct to use the remove method. 
 
-## Part 10 Wins
+## Part 9 Wins
 
 Here are 3 interesting problems I solved:
 
@@ -368,7 +368,7 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
     }
 
 
-## Part 11 Key Learnings/Takeaways
+## Part 10 Key Learnings/Takeaways
 
 #### 1. HTML 
 
@@ -448,13 +448,13 @@ Here's some code I wrote to create betting buttons, handle a click, and remove t
 
 It is the first working application I've thought out and completed on my own. It has shown me what, even at this early stage of knowledge-building, is possible. It has proved to me that with more time and learning, the possibilities will grow quickly. 
 
-## Part 12 Bugs
+## Part 11 Bugs
 
 There are no bugs to the best of my knowledge. Although without a test-driven process, it has been difficult to thoroughly ensure bug-free code. Much of the testing has been done by eye and through random trials of the game. 
 
 Some unnecessary comments have been left inside the code for the sake of future improvements.
 
-## Part 13 Future Improvements
+## Part 12 Future Improvements
 
 In the future, I'd be interested in adding the following improvements:
 
