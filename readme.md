@@ -85,7 +85,12 @@ Your app must:
 * **[MDN Javascript Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)** _(a great reference for all things Vanilla Javascript)_
 * **[Github Pages](https://pages.github.com)** _(for hosting your game)_
 
+ ______
+End of Brief
+
  -->
+ 
+
 ## Part 5 Planning
 
 To plan this project, I used [Shortcut](https://app.shortcut.com/) and divided the tasks into HTML, CSS, and JavaScript. First setting up some basic HTML, and then going into the game logic, before finally applying some CSS, which is based off of a model image located at ./Final CSS.jpg
@@ -93,9 +98,6 @@ To plan this project, I used [Shortcut](https://app.shortcut.com/) and divided t
 The UI was mostly determined on the fly and by the model image, so there were no wireframes for the UI. 
 
 Pseudocode was also applied in the JavaScript in order to section out the different parts of the game before it was removed upon completion of code. 
-
-______
-End of Brief
 
 ## Part 6 Build/Code Process
 
